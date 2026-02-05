@@ -1,0 +1,99 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/song/list.css}"
+      href="/assets/css/song/list.css"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/layout/play.css}"
+      href="/assets/css/layout/play.css"
+    />
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script th:inline="javascript">
+      let currentPage = 1;
+      let currentSortType = "newest";
+      let totalPages = /*[[${totalPage}]]*/ 1;
+    </script>
+    <script th:src="@{/assets/js/song/list.js}"></script>
+  </head>
+  <body>
+    <!-- 상단바 영역-->
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+
+    <div class="song-container">
+      <!-- 노래 리스트 상단-->
+      <div class="list-top">
+        <!-- 노래 정렬 버튼 -->
+        <div class="song-sort">
+          <button id="sort-newest">최신순</button>
+          <button id="sort-oldest">오래된순</button>
+          <button id="sort-title">가나다순</button>
+        </div>
+
+        <!-- 노래 생성 페이지 이동 -->
+        <div class="generate-song">
+          <a th:href="@{/song/generate}"
+            >동요 만들러 가기
+            <img
+              th:src="@{/assets/img/song/plus_circle_icon.svg}"
+              alt="Create Song"
+            />
+          </a>
+        </div>
+      </div>
+      <!-- 노래 리스트 테이블 -->
+      <table class="song-list-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>노래 제목</th>
+            <th>생성일</th>
+            <th>듣기</th>
+            <th>저장</th>
+            <th>더보기</th>
+          </tr>
+        </thead>
+        <tbody>
+          <th:block th:replace="~{song/list-content :: songList}"></th:block>
+        </tbody>
+      </table>
+      <!-- 페이지 번호 -->
+      <div class="page-no">
+        <button id="prev-page">&lt;</button>
+        <span id="page-list">
+          <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
+            <button
+              class="page-number"
+              th:data-page="${i}"
+              th:classappend="${i == 1} ? 'active' : ''"
+              th:text="${i}"
+            ></button>
+          </th:block>
+        </span>
+        <button id="next-page">&gt;</button>
+      </div>
+      <!-- 노래 재생 레이아웃 -->
+      <th:block th:replace="~{layout/play :: play}"></th:block>
+      <!-- 노래 더보기 레이아웃 -->
+      <th:block th:replace="~{layout/menu :: menu}"></th:block>
+    </div>
+  </body>
+</html>

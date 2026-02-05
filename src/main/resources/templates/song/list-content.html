@@ -1,0 +1,62 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <th:block th:fragment="songList">
+      <tr th:each="song, iterStat : ${songs}">
+        <td>
+          <img
+            id="song-cover-img"
+            th:src="@{/{mediaUrl}(mediaUrl=${song.coverMediaUrl})}"
+            alt="Song Icon"
+          />
+        </td>
+        <td>
+          <a
+            th:href="@{/song/play(songTitle=${song.title}, songId=${song.songId})}"
+          >
+            <span th:text="${song.title}">노래 제목</span>
+          </a>
+        </td>
+        <td th:text="${#temporals.format(song.createdAt, 'yyyy.MM.dd')}">
+          생성일
+        </td>
+        <td>
+          <button
+            class="play-song-btn"
+            th:data-song-url="@{/{mediaUrl}(mediaUrl=${song.fullAudioUrl})}"
+            th:data-song-index="${iterStat.index}"
+            th:data-song-title="${song.title}"
+            th:data-song-id="${song.songId}"
+          >
+            <img th:src="@{/assets/img/song/play_icon.svg}" alt="Play Song" />
+          </button>
+        </td>
+        <td>
+          <button
+            class="save-song-btn"
+            th:data-song-url="@{/{mediaUrl}(mediaUrl=${song.fullAudioUrl})}"
+            th:data-song-title="${song.title}"
+            th:data-song-id="${song.songId}"
+          >
+            <img
+              th:src="@{/assets/img/song/download_icon.svg}"
+              alt="Download Song"
+            />
+          </button>
+        </td>
+        <td>
+          <button
+            class="more-options-btn"
+            th:data-song-id="${song.songId}"
+            th:data-song-title="${song.title}"
+          >
+            <img
+              th:src="@{/assets/img/song/more_icon.svg}"
+              alt="More Options"
+            />
+          </button>
+        </td>
+      </tr>
+    </th:block>
+  </body>
+</html>

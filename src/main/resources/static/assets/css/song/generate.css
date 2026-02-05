@@ -1,0 +1,630 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 노래 생성 컨테이너 */
+.generate-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  flex: 1;
+  min-width: 0;
+  min-height: calc(100vh - 232px);
+}
+
+.step-content {
+  margin: 0;
+  padding: 0;
+}
+
+.input-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  max-width: 760px;
+  width: 100%;
+  height: 100%;
+}
+
+.lyrics-display-container {
+  display: flex;
+  gap: 20px;
+  max-width: 1100px;
+  width: 100%;
+  flex-direction: row;
+  align-items: stretch;
+  margin: 0 auto;
+}
+
+/* stepper */
+.stepper-wrapper {
+  max-width: 1100px;
+  margin: 90px auto 50px;
+  padding: 0 20px;
+}
+
+.stepper-line {
+  position: relative;
+  top: 17px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    #f5ee6c 0%,
+    #d5f56c 25%,
+    #b2f58e 50%,
+    #6cf575 75%,
+    #45f58b 100%
+  );
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.stepper-list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.stepper-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.step-number1,
+.step-number2,
+.step-number3,
+.step-number4,
+.step-number5 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  position: relative;
+  z-index: 3;
+}
+.step-number1 {
+  background-color: #f5ee6c;
+  color: #111;
+}
+.step-number2 {
+  background-color: #d5f56c;
+  color: #111;
+}
+.step-number3 {
+  background-color: #b2f58e;
+  color: #111;
+}
+.step-number4 {
+  background-color: #6cf575;
+  color: #111;
+}
+
+.step-number5 {
+  background-color: #45f58b;
+  color: #111;
+}
+
+.step1.active .step-number1,
+.step2.active .step-number2,
+.step3.active .step-number3,
+.step4.active .step-number4,
+.step5.active .step-number5 {
+  display: none;
+}
+
+.step-label {
+  display: none;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111;
+  padding: 10px 20px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 3;
+}
+
+.step1.active .step-label {
+  display: inline-block;
+  background-color: #f5ee6c;
+}
+.step2.active .step-label {
+  display: inline-block;
+  background-color: #d5f56c;
+}
+.step3.active .step-label {
+  display: inline-block;
+  background-color: #b2f58e;
+}
+.step4.active .step-label {
+  display: inline-block;
+  background-color: #6cf575;
+}
+.step5.active .step-label {
+  display: inline-block;
+  background-color: #45f58b;
+}
+/* step 표시/숨김 */
+.generate-step {
+  display: none;
+}
+
+.generate-step.active {
+  display: block;
+}
+
+/* 1 곡 정보 입력 */
+
+/* 제목, 주제 입력칸 */
+.song-title,
+.song-subject {
+  width: 100%;
+  border-radius: 12px;
+  background: #fbffd6;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.song-title input,
+.song-subject input {
+  flex: 1;
+  margin: 0;
+  padding: 15px;
+  font-size: 16px;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  background: #fff;
+  box-sizing: border-box;
+  margin-left: 10px;
+}
+
+.song-title input:focus,
+.song-subject input:focus {
+  outline: none;
+  border-color: #6cf575;
+  box-shadow: 0 0 0 3px rgba(108, 245, 117, 0.1);
+}
+
+.song-title p,
+.song-subject p {
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+/* 오디오 길이 선택 */
+.song-audio-length-container {
+  width: 100%;
+  padding: 25px 20px;
+  background-color: #fbffd6;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.song-audio-length {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.song-audio-length p {
+  font-weight: 600;
+  margin: 0;
+  margin-right: 10px;
+  color: #333;
+}
+.audio-length-note {
+  font-weight: 400;
+  font-size: 11px;
+  margin: 10px 0 0 0;
+  color: #666;
+}
+
+.song-audio-length #audio-minutes,
+.song-audio-length #audio-seconds {
+  width: 70px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+.song-audio-length #audio-minutes:focus,
+.song-audio-length #audio-seconds:focus {
+  outline: none;
+  border-color: #6cf575;
+  box-shadow: 0 0 0 3px rgba(108, 245, 117, 0.1);
+}
+.song-audio-length span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.song-audio-length span {
+  color: #666;
+}
+
+/* verse 선택 */
+.song-verse-no {
+  display: flex;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+.song-verse-no input[type="radio"] {
+  display: none;
+}
+
+.song-verse-no label {
+  padding: 10px 20px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 50px;
+}
+
+.song-verse-no label:hover {
+  border-color: #6cf575;
+  background-color: #f0fff0;
+}
+
+.song-verse-no input[type="radio"]:checked + label {
+  background-color: #d5f56c;
+  border-color: #6cf575;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(213, 245, 108, 0.4);
+  transform: translateY(-1px);
+}
+
+/* 보컬 성별 선택 */
+.song-vocal-gender {
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 20px;
+  background-color: #fbffd6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.song-vocal-gender p {
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.vocal-gender-options {
+  display: flex;
+  gap: 10px;
+}
+
+.vocal-gender-options input[type="radio"] {
+  display: none;
+}
+
+.vocal-gender-options label {
+  display: inline-block;
+  padding: 10px 30px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.vocal-gender-options label:hover {
+  border-color: #6cf575;
+  background-color: #f0fff0;
+}
+
+.vocal-gender-options input[type="radio"]:checked + label {
+  background-color: #d5f56c;
+  border-color: #6cf575;
+  font-weight: 600;
+}
+
+/* 2 분위기, 카테고리 */
+.song-mood p,
+.song-category p {
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.song-mood,
+.song-category {
+  width: 100%;
+  border-radius: 12px;
+  background: #f1ffc2;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.song-mood ul,
+.song-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.song-mood li,
+.song-category li {
+  margin: 0;
+}
+
+.song-mood .mood-select,
+.song-category .category-select {
+  border: 2px solid #ddd;
+  background: #fff;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.song-mood .mood-select:hover,
+.song-category .category-select:hover {
+  border-color: #6cf575;
+  background-color: #f0fff0;
+}
+
+.song-mood .mood-select[aria-pressed="true"],
+.song-category .category-select[aria-pressed="true"] {
+  border-color: #6cf575;
+  background-color: #e8ffe8;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(108, 245, 117, 0.3);
+  transform: translateY(-1px);
+}
+
+/* 3 가사 생성 */
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.song-lyrics p,
+.song-lyrics li {
+  font-size: 15px;
+  color: #333;
+  margin: 0;
+}
+
+/* 가사 표시 */
+.song-lyrics {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#lyrics-display {
+  width: 100%;
+  min-height: 300px;
+  height: 100%;
+  padding: 15px;
+  font-size: 15px;
+  line-height: 1.6;
+  border: 2px solid #d5f56c;
+  border-radius: 12px;
+  resize: vertical;
+  margin-bottom: 20px;
+  background-color: #fff;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+#lyrics-display:focus {
+  outline: none;
+  border-color: #6cf575;
+  box-shadow: 0 0 0 3px rgba(108, 245, 117, 0.1);
+}
+
+/* 4 커버 이미지 업로드 */
+/* 커버 이미지 업로드 */
+.song-media {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #caffce;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.song-media-upload-text {
+  font-weight: 600;
+  margin: 0;
+  margin-right: 10px;
+  color: #333;
+}
+
+.song-media-upload {
+  border: 3px dashed #ccc;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #fff;
+  position: relative;
+  padding: 40px 20px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.song-media-upload:hover {
+  border-color: #6cf575;
+  background-color: #f9fff9;
+}
+
+.song-media-upload input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#upload-placeholder {
+  color: #999;
+  font-size: 15px;
+  pointer-events: none;
+  margin-top: 10px;
+}
+
+.song-media-upload.uploaded #upload-icon,
+.song-media-upload.uploaded #upload-placeholder {
+  /* JS에서 업로드 후 uploded 클래스 추가 */
+  display: none;
+}
+
+#cover-image {
+  visibility: hidden;
+}
+
+.song-media-upload.uploaded #cover-image {
+  visibility: visible;
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+}
+
+/* 5 생성 완료 */
+.generate-step[data-step="5"] {
+  flex: 1;
+  width: 100%;
+}
+
+.lyrics-display-container.step5-active {
+  justify-content: center;
+}
+
+.step5 .step-content {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.generating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#generating-image {
+  width: 860px;
+  height: auto;
+}
+
+.generating-note {
+  margin-bottom: 30px;
+}
+
+.generating-note p {
+  font-size: 20px;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* 버튼 스타일 */
+#to-step-2,
+#to-step-3,
+#to-step-4,
+#to-step-5,
+#generate-lyrics,
+#go-home {
+  background-color: #d5f56c;
+  border: none;
+  color: #333;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+
+#to-step-2:hover,
+#to-step-3:hover,
+#to-step-4:hover,
+#to-step-5:hover,
+#generate-lyrics:hover,
+#go-home:hover {
+  background-color: #c5e55c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(213, 245, 108, 0.4);
+}
+
+/* 곡 정보 표시 */
+.song-info {
+  width: 300px;
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: #fbffed;
+  border-radius: 12px;
+  align-self: flex-start;
+  position: sticky;
+  top: 20px;
+  box-sizing: border-box;
+}
+
+.song-info h3 {
+  text-align: center;
+  margin: 20px;
+  font-size: 25px;
+  color: #333;
+}
+
+.song-info-description p {
+  margin: 20px 0;
+  color: #333;
+  font-size: 20px;
+  height: 100%;
+}

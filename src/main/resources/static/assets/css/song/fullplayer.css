@@ -1,0 +1,161 @@
+.fullplayer-wrapper {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 뒤로가기 버튼 */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 동영상 생성 바로가기 버튼 */
+.generate-video-shortcut {
+  position: relative;
+  width: auto;
+  height: 30px;
+  margin-left: auto;
+  color: #000;
+  padding: 5px 10px;
+  display: flex;
+  font-size: 14px;
+  background-color: #9cf56c;
+  border-radius: 30px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.generate-video-shortcut button {
+  text-decoration: none;
+  color: #000;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.generate-video-shortcut:hover {
+  background-color: #7ed24a;
+}
+
+.generate-video-shortcut img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+/* 가사 토글 버튼 */
+.lyrics-toggle {
+  position: fixed;
+  bottom: 110px;
+  left: 20px;
+  z-index: 999;
+  font-size: 20px;
+}
+
+.lyrics-toggle button {
+  padding: 10px 20px;
+  background-color: #9cf56c;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.lyrics-toggle button.hidden {
+  display: none;
+}
+
+/* 노래 재생 */
+.fullplayer-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 90%;
+  height: calc(100vh - 200px);
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+/* 노래 제목 */
+.fullplayer-container .song-title {
+  position: relative;
+  margin: 10px auto 15px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+}
+
+/* 노래 썸네일, 노래 가사 */
+.image-container {
+  flex-shrink: 0;
+  width: 900px;
+  height: 490px;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.song-thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.song-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 30px;
+}
+
+.song-lyrics {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  display: none;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.song-lyrics pre {
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

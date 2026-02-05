@@ -1,0 +1,84 @@
+<!-- play.html은 아래에 작게 재생 fullplayer는 화면 전체 재생 -->
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Link Kids Song</title>
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/assets/css/song/fullplayer.css}"
+      href="/assets/css/song/fullplayer.css"
+    />
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script th:inline="javascript">
+      window.songUrl = /*[[@{/{path}(path=${fullAudioUrl})}]]*/ "";
+    </script>
+    <script th:src="@{/assets/js/song/fullplayer.js}"></script>
+  </head>
+  <body>
+    <!-- 상단바 영역-->
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+
+    <!-- 노래 재생 전체 영역 -->
+    <div class="fullplayer-wrapper">
+      <!-- 뒤로가기 버튼 -->
+      <div class="back-btn" id="back-btn">
+        <img th:src="@{/assets/img/song/back_btn_icon.svg}" alt="Back Button" />
+      </div>
+      <!-- 동영상 생성 바로 가기 -->
+      <div class="generate-video-shortcut">
+        <button
+          class="generate-video"
+          id="generate-video-btn"
+          th:data-song-id="${songId}"
+        >
+          이 노래로 동영상 제작
+          <img th:src="@{/assets/img/next_icon.svg}" alt="Generate Video" />
+        </button>
+      </div>
+      <!-- 가사 표시 토글 -->
+      <div class="lyrics-toggle">
+        <button id="lyrics-show">가사 표시</button>
+        <button id="lyrics-hide">가사 숨기기</button>
+      </div>
+
+      <!-- 노래 재생 -->
+      <div class="fullplayer-container">
+        <!-- 노래 제목-->
+        <div class="song-title">
+          <h2 th:text="${songTitle}">노래 제목</h2>
+        </div>
+        <div class="image-container">
+          <!-- 노래 썸네일-->
+          <div class="song-thumbnail">
+            <img
+              th:src="@{/{path}(path=${thumbnailUrl})}"
+              th:if="${thumbnailUrl != null and !thumbnailUrl.isEmpty()}"
+              alt="Song Thumbnail"
+            />
+          </div>
+          <!-- 노래 가사 -->
+          <div class="song-lyrics" id="song-lyrics">
+            <pre th:text="${songLyrics}">노래 가사</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- 노래 재생 컨트롤러 -->
+      <th:block th:replace="~{layout/play :: play}"></th:block>
+    </div>
+  </body>
+</html>

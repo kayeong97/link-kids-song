@@ -1,0 +1,273 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Link Kids Song</title>
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/song/generate.css}"
+      href="/assets/css/song/generate.css"
+    />
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script th:src="@{/assets/js/song/generate.js}"></script>
+  </head>
+  <body>
+    <!-- 상단 바 영역 -->
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+
+    <!-- stepper -->
+    <div class="stepper-wrapper">
+      <div class="stepper-line"></div>
+      <ol class="stepper-list">
+        <li class="step1">
+          <span class="step-number1">1</span>
+          <span class="step-label">1. 곡 기초 정보 입력</span>
+        </li>
+        <li class="step2">
+          <span class="step-number2">2</span>
+          <span class="step-label">2. 분위기 및 카테고리 선택</span>
+        </li>
+        <li class="step3">
+          <span class="step-number3">3</span>
+          <span class="step-label">3. 가사 생성</span>
+        </li>
+        <li class="step4">
+          <span class="step-number4">4</span>
+          <span class="step-label">4. 커버 이미지 선택</span>
+        </li>
+        <li class="step5">
+          <span class="step-number5">5</span>
+          <span class="step-label">5. 생성 완료</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- 가사가 있는 컨테이너 -->
+    <div class="lyrics-display-container">
+      <!-- 좌측 곡 정보 표시 -->
+      <div class="song-info">
+        <div class="song-info-description">
+          <h3>곡 정보</h3>
+          <p id="info-title">제목:</p>
+          <p id="info-subject">주제:</p>
+          <p id="info-mood">분위기:</p>
+          <p id="info-category">카테고리:</p>
+          <p id="info-length">오디오 길이:</p>
+          <p id="info-gender">보컬 성별:</p>
+        </div>
+      </div>
+
+      <!-- 아래 내용 -->
+      <div class="generate-container">
+        <!-- 1 곡 기초 정보 입력 -->
+        <section class="generate-step" data-step="1">
+          <div class="step-content">
+            <div class="input-content">
+              <div class="song-title">
+                <p>제목:</p>
+                <input
+                  type="text"
+                  id="song-title"
+                  placeholder="제목을 입력하여 주세요"
+                />
+              </div>
+              <!-- 주제 입력 -->
+              <div class="song-subject">
+                <p>주제:</p>
+                <input
+                  type="text"
+                  id="song-subject"
+                  placeholder="주제를 입력하여 주세요"
+                />
+              </div>
+              <!-- 오디오 길이 선택 -->
+              <div class="song-audio-length-container">
+                <div class="song-audio-length">
+                  <p>오디오 길이</p>
+                  <select id="audio-minutes">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                  <span>분</span>
+                  <select id="audio-seconds">
+                    <option value="0">0</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
+                  <span>초</span>
+                  <div class="song-verse-no">
+                    <input type="radio" name="verse-no" id="verse1" checked />
+                    <label for="verse1">1절</label>
+                    <input type="radio" name="verse-no" id="verse2" />
+                    <label for="verse2">2절</label>
+                    <input type="radio" name="verse-no" id="verse3" />
+                    <label for="verse3">3절</label>
+                  </div>
+                </div>
+                <p class="audio-length-note">
+                  * 오디오는 30초부터 최대 2분까지 생성 가능합니다
+                </p>
+              </div>
+              <!-- 보컬 성별 선택 -->
+              <div class="song-vocal-gender">
+                <p>보컬 성별 선택</p>
+                <div class="vocal-gender-options">
+                  <input type="radio" name="vocal-gender" id="male" checked />
+                  <label for="male">남자아이</label>
+                  <input type="radio" name="vocal-gender" id="female" />
+                  <label for="female">여자아이</label>
+                </div>
+              </div>
+            </div>
+            <button id="to-step-2">다음</button>
+          </div>
+        </section>
+
+        <!-- 2 분위기 및 카테고리 선택-->
+        <section class="generate-step" data-step="2">
+          <div class="step-content">
+            <div class="input-content">
+              <!-- 분위기 선택 -->
+              <div class="song-mood">
+                <p>분위기를 선택하여 주세요</p>
+                <ul>
+                  <li th:each="mood : ${moodList}">
+                    <button
+                      type="button"
+                      class="mood-select"
+                      th:text="${mood}"
+                      th:attr="data-mood=${mood}"
+                      aria-pressed="false"
+                    ></button>
+                  </li>
+                </ul>
+              </div>
+              <!-- 카테고리 선택 -->
+              <div class="song-category">
+                <p>카테고리를 선택하여주세요</p>
+                <ul>
+                  <li th:each="category : ${categoryList}">
+                    <button
+                      type="button"
+                      class="category-select"
+                      th:text="${category}"
+                      th:attr="data-category=${category}"
+                      aria-pressed="false"
+                    ></button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <button id="to-step-3">다음</button>
+          </div>
+        </section>
+
+        <!-- 3단계 가사 생성 -->
+        <section class="generate-step" data-step="3">
+          <div class="step-content">
+            <div class="input-content">
+              <div class="song-lyrics">
+                <p>* 가사 작성 요령</p>
+                <ul>
+                  <li>
+                    1. 가사는 <b>[Verse]</b>와 <b>[Chorus]</b> 태그로 구역을
+                    나눠 작성해 주세요.
+                  </li>
+                  <li>
+                    2. 기본 구조는 <b>[Verse] → [Chorus]</b>이며, 필요하면 이
+                    세트를 반복해도 됩니다.
+                  </li>
+                  <li>
+                    3. 분위기 전환이 필요할 때는 <b>[Bridge]</b> 태그를 추가해
+                    주세요.
+                  </li>
+                  <li>
+                    4. 각 태그 안의 내용은 너무 길지 않게(짧은 문장 4~5줄 정도)
+                    작성해 주세요.
+                  </li>
+                  <li>
+                    5. 태그 이름은 첫 알파벳만 대문자로 정확히 입력해 주세요.
+                  </li>
+                </ul>
+
+                <textarea
+                  id="lyrics-display"
+                  placeholder="가사 생성하기를 통해 가사를 생성하거나 준비한 가사를 입력해주세요"
+                ></textarea>
+              </div>
+            </div>
+            <div class="lyrics-generate-button-container">
+              <button id="generate-lyrics">가사 생성하기</button>
+              <button id="to-step-4">다음</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4단계 커버 이미지 선택 -->
+        <section class="generate-step" data-step="4">
+          <div class="step-content">
+            <div class="input-content">
+              <!-- 커버 이미지 업로드 -->
+              <div class="song-media">
+                <div class="song-media-upload-text">
+                  <p>커버 이미지를 선택해 주세요</p>
+                </div>
+                <div class="song-media-upload">
+                  <input
+                    type="file"
+                    id="song-media"
+                    name="file"
+                    accept="image/*"
+                  />
+                  <img
+                    id="upload-icon"
+                    th:src="@{/assets/img/song/upload_icon.svg}"
+                    alt="Upload Icon"
+                  />
+                  <p id="upload-placeholder">사진 업로드</p>
+                  <img id="cover-image" alt="Cover Image" />
+                </div>
+              </div>
+            </div>
+            <button id="to-step-5">생성</button>
+          </div>
+        </section>
+
+        <!-- 5단계 동요 생성 -->
+        <section class="generate-step" data-step="5">
+          <div class="step-content">
+            <div class="generating">
+              <img
+                src="/assets/img/song/generating.svg"
+                id="generating-image"
+                alt="Generating Song"
+              />
+              <div class="generating-note">
+                <p>동요 생성은 10분 이상 소요됩니다</p>
+              </div>
+              <button id="go-home">홈으로 이동</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <th:block
+      th:replace="~{layout/loading :: loading(text='가사 생성중입니다')}"
+    ></th:block>
+  </body>
+</html>
