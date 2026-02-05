@@ -1,0 +1,44 @@
+/* menu layout */
+.menu-layout {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 180px;
+  display: none;
+  z-index: 999;
+}
+
+.menu-layout.active {
+  display: block;
+}
+
+.menu-layout .remove,
+.menu-layout .generate-video {
+  margin: 0;
+}
+
+.menu-layout button {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.menu-layout button:hover {
+  background-color: #f5f5f5;
+}
+
+.menu-layout button img {
+  width: 20px;
+  height: 20px;
+}

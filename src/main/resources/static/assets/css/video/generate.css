@@ -1,0 +1,336 @@
+/* 동영상 생성 container */
+.generate-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  width: 100%;
+  padding: 0 20px;
+  gap: 20px;
+  margin: 90px auto 40px;
+}
+
+/* 동영상 제목*/
+.video-title-section {
+  background-color: #def4ac;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.video-title-section label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.video-title-section input {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.video-title-section input::placeholder {
+  color: #999;
+}
+
+.video-title-section input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(108, 245, 117, 0.3);
+}
+
+/* 사진 업로드 */
+.video-image-section {
+  background-color: #def4ac;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.video-image-section label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.video-image-upload {
+  position: relative;
+  border: 3px dashed #999;
+  border-radius: 12px;
+  background-color: #fbffed;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.video-image-upload:hover {
+  border-color: #6cf575;
+  background-color: #fbffed;
+}
+
+.video-image-upload input[type="file"] {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  opacity: 0.6;
+}
+
+.upload-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.video-image-upload.has-image .upload-content {
+  display: none;
+}
+
+.video-image-upload.has-image .preview-image {
+  display: block !important;
+}
+
+/* 노래 선택 */
+.video-bgm-section {
+  background-color: #def4ac;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.bgm-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  background-color: #def4ac;
+  border-radius: 12px;
+}
+
+.song-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.header-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 10px;
+}
+
+.next-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.next-button:hover {
+  transform: scale(1.1);
+}
+
+.next-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* 선택된 노래 */
+.selected-song {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #fbffed;
+  border-radius: 12px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
+.song-thumbnail {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.song-title {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 제작하기 버튼 */
+.generate-button {
+  margin-top: 20px;
+  padding: 18px;
+  background-color: #def4ac;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  align-self: flex-end;
+  min-width: 180px;
+}
+
+.generate-button:hover {
+  background-color: #d0e899;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.generate-button:active {
+  transform: translateY(0);
+}
+
+/* 생성중 화면 */
+.generating-video {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.generating-video.active {
+  display: flex;
+}
+
+.generating-video span {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* 노래 선택 모달 */
+.song-select-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 노래 선택 헤더 */
+.video-bgm-select .select-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 15px 20px;
+}
+
+.video-bgm-select .select-header img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.video-bgm-select .select-header span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.video-bgm-select .select-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* 선택된 노래 */
+.video-bgm-select .selected-song {
+  background-color: #fbffed;
+  border-radius: 12px;
+  margin: 15px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.video-bgm-select .selected-song img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.video-bgm-select .selected-song span {
+  margin-left: 20px;
+  font-size: 16px;
+  padding: 10px 15px;
+}
+
+/* 제작하기 버튼 */
+.generate-button {
+  width: 300px;
+  align-items: center;
+  justify-items: center;
+  padding: 15px;
+  font-size: 20px;
+  background-color: #def4ac;
+}
+
+.generate-button:hover {
+  background-color: #c4ed94;
+  cursor: pointer;
+}
+
+/* 생성 중 */
+.generate-button.generated .generate-container {
+  display: none;
+}
+
+.generate-button.generated .generating-video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+}

@@ -1,0 +1,46 @@
+<th:block th:fragment="play">
+  <link
+    rel="stylesheet"
+    th:href="@{/assets/css/layout/play.css}"
+    href="/assets/css/layout/play.css"
+  />
+  <div class="play-song">
+    <!-- 노래 progress bar-->
+    <div class="song-progress-bar">
+      <span id="current-time">00:00</span>
+      <input type="range" id="progress-bar" value="0" />
+      <span id="total-time">00:00</span>
+    </div>
+
+    <!-- 재생 컨트롤 버튼 -->
+    <div class="play-controls">
+      <!-- 이전 노래 재생 버튼 -->
+      <button id="pre-song-play-btn">
+        <img
+          th:src="@{/assets/img/layout/previous_icon.svg}"
+          alt="Previous Song"
+        />
+      </button>
+
+      <!-- 노래 재생 버튼 -->
+      <button id="play-pause-btn" class="play-pause-btn">
+        <img
+          id="pause-icon"
+          th:src="@{/assets/img/layout/pause_icon.svg}"
+          alt="Pause"
+          style="display: none"
+        />
+        <img
+          id="play-icon"
+          th:src="@{/assets/img/layout/play_icon.svg}"
+          alt="Play"
+        />
+      </button>
+
+      <!-- 다음 노래 재생 버튼 -->
+      <button id="next-song-play-btn">
+        <img th:src="@{/assets/img/layout/next_icon.svg}" alt="Next Song" />
+      </button>
+    </div>
+  </div>
+</th:block>

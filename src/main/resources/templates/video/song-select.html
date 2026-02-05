@@ -1,0 +1,49 @@
+<th:block th:fragment="song-select(songs)">
+  <link
+    rel="stylesheet"
+    th:href="@{/assets/css/video/song-select.css}"
+    href="/assets/css/video/song-select.css"
+  />
+  <div class="song-select-modal">
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="song-select-container">
+        <div class="title">
+          <h2>노래 선택</h2>
+          <button class="close-button" id="close-song-select-modal">
+            <img
+              th:src="@{/assets/img/video/close_icon.svg}"
+              alt="Close Icon"
+            />
+          </button>
+          <hr />
+        </div>
+        <div class="song-list">
+          <th:block th:if="${#lists.isEmpty(songs)}">
+            <p class="no-songs-message">등록된 노래가 없습니다.</p>
+          </th:block>
+          <th:block th:each="song : ${songs}">
+            <div
+              class="song-item"
+              th:data-song-id="${song.songId}"
+              th:data-song-title="${song.title}"
+            >
+              <button class="song-info">
+                <img
+                  class="song-thumbnail"
+                  th:src="@{/{mediaUrl}(mediaUrl=${song.coverMediaUrl})}"
+                  alt="Song Thumbnail"
+                />
+                <span class="song-title" th:text="${song.title}"
+                  >Song Title</span
+                >
+              </button>
+            </div>
+          </th:block>
+        </div>
+        <div class="select-btn">
+          <button id="confirm-song-selection">선택 완료</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>

@@ -1,0 +1,34 @@
+<th:block th:fragment="top(username)">
+  <!doctype html>
+  <html xmlns="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <link rel="stylesheet" th:href="@{/assets/css/layout/top.css}" />
+      <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+      <script th:src="@{/assets/js/layout/top.js}"></script>
+    </head>
+    <body>
+      <div class="Top-bar">
+        <!-- 로고 -->
+        <a th:href="@{/home}">
+          <img th:src="@{/assets/img/logo_img.svg}" alt="Logo" />
+        </a>
+
+        <!-- 사용자 정보 -->
+        <div class="user">
+          <button id="user-menu-button">
+            <img th:src="@{/assets/img/layout/user_icon.svg}" alt="User Icon" />
+            <span th:text="${username} + '님'">User</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 사용자 메뉴 -->
+      <div class="user-menu" id="user-menu">
+        <form th:action="@{/logout}" method="post" style="display: inline">
+          <button id="logout-button" type="submit">로그아웃</button>
+        </form>
+      </div>
+    </body>
+  </html>
+</th:block>

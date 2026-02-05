@@ -1,0 +1,62 @@
+/* 비디오 플레이어 */
+.fullplayer-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 60px auto 40px auto;
+}
+
+/* 비디오 플레이어 헤더 */
+.fullplayer-wrapper .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.fullplayer-wrapper .header .back-btn {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+
+.fullplayer-wrapper .header .back-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fullplayer-wrapper .header .video-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #333;
+}
+
+.fullplayer-wrapper .header .delete-video-btn {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+
+.fullplayer-wrapper .header .delete-video-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 비디오 플레이어 */
+.fullplayer-wrapper .video-player {
+  width: 100%;
+  background-color: black;
+}
+
+.fullplayer-wrapper .video-player video {
+  width: 100%;
+  height: auto;
+  background-color: black;
+}

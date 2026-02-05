@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <!-- 동영상 content -->
+    <th:block th:fragment="videoItems(videos)">
+      <div
+        class="video-item"
+        th:each="video : ${videos}"
+        th:attr="data-lipsync-id=${video.lipsyncId}, data-title=${video.title}"
+      >
+        <!-- 동영상 썸네일 -->
+        <div class="video-thumbnail">
+          <img
+            th:src="@{/{mediaUrl}(mediaUrl=${video.inputImageMediaUrl})}"
+            th:alt="${video.title}"
+            onerror="this.src = '/assets/img/video/default_thumbnail.png'"
+          />
+          <div class="video-overlay">
+            <button
+              class="play-video-button"
+              th:attr="data-lipsync-id=${video.lipsyncId}, data-title=${video.title}"
+            >
+              <img th:src="@{/assets/img/video/play_icon.svg}" alt="Play" />
+            </button>
+          </div>
+          <button
+            class="download-video-icon"
+            th:attr="data-lipsync-id=${video.lipsyncId}"
+          >
+            <img
+              th:src="@{/assets/img/video/download_icon.svg}"
+              alt="Download"
+            />
+          </button>
+        </div>
+
+        <!-- 동영상 제목 -->
+        <div class="video-title" th:text="${video.title}">동영상 제목</div>
+      </div>
+    </th:block>
+  </body>
+</html>

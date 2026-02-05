@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Kids Songs</title>
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/video/generate.css}"
+      href="/assets/css/video/generate.css"
+    />
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script th:src="@{/assets/js/video/generate.js}"></script>
+  </head>
+  <body>
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+
+    <div class="generate-container">
+      <!-- 제목 입력 -->
+      <div class="video-title-section">
+        <label for="video-title">동영상 제목</label>
+        <input
+          type="text"
+          id="video-title"
+          name="video-title"
+          placeholder="동영상 제목을 입력해주세요"
+        />
+      </div>
+
+      <!-- 사진 업로드 -->
+      <div class="video-image-section">
+        <label for="video-image">립싱크용 사진 업로드</label>
+        <div class="video-image-upload">
+          <input
+            type="file"
+            id="video-image"
+            name="video-image"
+            accept="image/*"
+          />
+          <div class="upload-content">
+            <img
+              th:src="@{/assets/img/video/upload_icon.svg}"
+              src="/assets/img/video/upload_icon.svg"
+              alt="사진 업로드"
+              class="upload-icon"
+            />
+            <span class="upload-text">사진업로드</span>
+          </div>
+          <img
+            class="preview-image"
+            id="preview-image"
+            alt="Preview Image"
+            style="display: none"
+          />
+        </div>
+      </div>
+
+      <!-- 노래 선택 -->
+      <div class="video-bgm-section">
+        <div class="bgm-header">
+          <img
+            th:src="@{/assets/img/video/song_icon.svg}"
+            src="/assets/img/video/song_icon.svg"
+            alt="Song Icon"
+            class="song-icon"
+          />
+          <span class="header-text">노래 선택</span>
+          <button id="open-song-select-modal" class="next-button">
+            <img
+              th:src="@{/assets/img/next_icon.svg}"
+              src="/assets/img/next_icon.svg"
+              alt="Next Icon"
+            />
+          </button>
+        </div>
+        <!-- 선택된 노래 -->
+        <div class="selected-song"></div>
+        <input
+          type="hidden"
+          id="selected-song-id"
+          th:value="${selectedSongId != null ? selectedSongId : ''}"
+        />
+      </div>
+
+      <!-- 완료 버튼 -->
+      <button class="generate-button" id="generate-video-button">
+        제작하기
+      </button>
+    </div>
+
+    <!-- 로딩 화면 -->
+    <th:block
+      th:replace="~{layout/loading :: loading(text='동영상 생성중입니다')}"
+    ></th:block>
+
+    <!-- 노래 선택 모달 -->
+    <th:block
+      th:replace="~{video/song-select :: song-select(songs=${userSongs})}"
+    ></th:block>
+  </body>
+</html>

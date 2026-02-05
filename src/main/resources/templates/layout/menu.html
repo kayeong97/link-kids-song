@@ -1,0 +1,31 @@
+<th:block th:fragment="menu"
+  ><!doctype html>
+  <html xmlns="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <link rel="stylesheet" th:href="@{/assets/css/layout/menu.css}" />
+    </head>
+    <body>
+      <div class="menu-layout">
+        <div class="remove">
+          <button class="remove" id="remove-btn">
+            <img
+              th:src="@{/assets/img/layout/remove_icon.svg}"
+              alt="Remove Song"
+            />
+            동요 삭제하기
+          </button>
+        </div>
+        <div class="generate-video">
+          <button class="generate-video" id="generate-video-btn">
+            <img
+              th:src="@{/assets/img/layout/video_icon.svg}"
+              alt="Generate Video"
+            />
+            동영상 생성하기
+          </button>
+        </div>
+      </div>
+    </body>
+  </html>
+</th:block>

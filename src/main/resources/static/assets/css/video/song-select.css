@@ -1,0 +1,163 @@
+.song-select-modal {
+  display: none;
+}
+
+/* overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 선택 모달 */
+.song-select-container {
+  position: relative;
+  width: 500px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* 모달 헤더 */
+.song-select-container .title {
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  padding: 20px 10px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.song-select-container .title h2 {
+  margin: 0;
+  color: #000;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.song-select-container .title button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 25px;
+}
+
+.song-select-container .title img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+/* 등록된 노래 없음 메시지 */
+.no-songs-message {
+  text-align: center;
+  color: #777;
+  margin: 80px 0;
+}
+
+/* 노래 리스트 */
+.song-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.song-list ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.song-list ::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.song-list .song-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.song-list .song-item:hover {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+}
+
+.song-list .song-item.selected {
+  background-color: #def4ac;
+  border-color: #c5e089;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.song-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.song-info .song-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.song-info .song-title {
+  margin-left: 20px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+}
+
+/* 선택 완료 버튼 */
+.select-btn #confirm-song-selection {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #def4ac;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* 종료 버튼 */
+.select-btn #close-song-select-modal {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background: none;
+  color: #555;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}

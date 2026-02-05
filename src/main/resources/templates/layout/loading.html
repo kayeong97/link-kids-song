@@ -1,0 +1,9 @@
+<th:block th:fragment="loading(text)">
+  <link rel="stylesheet" th:href="@{/assets/css/layout/loading.css}" />
+  <div class="loading-overlay">
+    <div class="loader-box">
+      <div class="loader"></div>
+      <div class="loading-text" th:text="${text}">로딩 중...</div>
+    </div>
+  </div>
+</th:block>

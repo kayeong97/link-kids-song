@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Kids Song</title>
+
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/video/fullplayer-video.css}"
+      href="/assets/css/video/fullplayer-video.css"
+    />
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script th:src="@{/assets/js/video/fullplayer-video.js}"></script>
+  </head>
+  <body>
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+    <div class="fullplayer-wrapper">
+      <div class="header">
+        <div class="back-btn" id="back-btn">
+          <img th:src="@{/assets/img/video/back_btn_icon.svg}" alt="Back" />
+        </div>
+        <span class="video-title" th:text="${videoTitle}">동영상 제목</span>
+        <img
+          class="delete-video-btn"
+          id="delete-video-btn"
+          th:src="@{/assets/img/video/delete_icon.svg}"
+          alt="Delete"
+        />
+      </div>
+      <div class="video-player">
+        <video id="full-video" controls>
+          <source
+            th:src="@{/{mediaUrl}(mediaUrl=${videoFilePath})}"
+            type="video/mp4"
+          />
+          브라우저가 video 재생을 지원하지 않습니다.
+        </video>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Kids Song</title>
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/video/list.css}"
+      href="/assets/css/video/list.css"
+    />
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script th:src="@{/assets/js/video/list.js}"></script>
+  </head>
+  <body>
+    <!-- 상단바 영역-->
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+
+    <div class="video-container">
+      <!-- 동영상 리스트 상단-->
+      <div class="list-top">
+        <!-- 동영상 정렬 버튼 -->
+        <div class="video-sort">
+          <button id="sort-date" class="active">날짜별</button>
+          <button id="sort-title">제목별</button>
+        </div>
+
+        <!-- 동영상 생성 페이지 이동 -->
+        <div class="generate-video">
+          <a th:href="@{/video/generate}"
+            >동영상 제작하러 가기
+            <img
+              th:src="@{/assets/img/video/plus_circle_icon.svg}"
+              alt="Create Video"
+            />
+          </a>
+        </div>
+      </div>
+
+      <!-- 동영상 리스트 -->
+      <!-- 토글 형식 -->
+      <div class="video-list">
+        <details
+          class="video-list-details"
+          th:each="entry : ${headerList}"
+          th:attr="data-key=${entry.key}, data-value=${entry.value}"
+        >
+          <!-- 토글 헤더 -->
+          <summary class="video-list-summary">
+            <span class="arrow-icon">▶</span>
+            <span class="video-list-summary-text" th:text="${entry.key}"
+              >동영상</span
+            >
+          </summary>
+
+          <!-- 동영상 리스트 (동적으로 로드될 영역) -->
+          <div class="video-items-container"></div>
+        </details>
+      </div>
+    </div>
+  </body>
+</html>
