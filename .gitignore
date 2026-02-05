@@ -1,0 +1,63 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### 환경변수 ###
+.env
+.env.local
+.env.*.local
+
+### 파일 ###
+uploads/*
+
+### docker ###
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+### nginx ###
+nginx/**
+nginx.conf
+
+application.properties
+
+### keys/certs
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
