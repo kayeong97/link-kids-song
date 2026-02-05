@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Link Kids Song</title>
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/signup.css}"
+      href="/assets/css/signup.css"
+    />
+    <!-- jQuery -->
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script th:src="@{/assets/js/user/signup.js}"></script>
+  </head>
+  <body>
+    <div class="signup-wrapper">
+      <div class="signup-container">
+        <div class="Signup-logo">
+          <img th:src="@{/assets/img/logo_img.svg}" alt="LogoImage" />
+        </div>
+
+        <form id="signupForm" class="signup-form">
+          <!-- 아이디 입력 -->
+          <div class="input-group">
+            <div class="input-with-button">
+              <input
+                type="text"
+                id="userId"
+                name="userId"
+                placeholder="아이디"
+                required
+              />
+              <button type="button" class="check-button" id="checkIdBtn">
+                중복확인
+              </button>
+            </div>
+            <p class="error-message" id="idErrorMsg"></p>
+          </div>
+
+          <!-- 이메일 입력 -->
+          <div class="input-group">
+            <div class="input-with-button">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="이메일 입력"
+                required
+              />
+              <button type="button" class="check-button" id="checkEmailBtn">
+                중복확인
+              </button>
+            </div>
+            <p class="error-message" id="emailErrorMsg"></p>
+          </div>
+
+          <!-- 비밀번호 입력 -->
+          <div class="input-group">
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="비밀번호"
+                required
+              />
+              <button type="button" class="toggle-password" id="togglePassword">
+                <img
+                  th:src="@{/assets/img/user/openEyes.svg}"
+                  alt="비밀번호 보기"
+                  class="eye-icon"
+                />
+                <img
+                  th:src="@{/assets/img/user/offEyes.svg}"
+                  alt="비밀번호 숨기기"
+                  class="eye-icon hidden"
+                />
+              </button>
+            </div>
+            <p class="error-message" id="passwordErrorMsg"></p>
+          </div>
+
+          <!-- 비밀번호 확인 -->
+          <div class="input-group">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="비밀번호 재확인"
+              required
+            />
+            <p class="error-message" id="confirmPasswordErrorMsg"></p>
+          </div>
+
+          <!-- 이름 입력 -->
+          <div class="input-group">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="이름"
+              required
+            />
+          </div>
+
+          <!-- 생년월일 입력 -->
+          <div class="input-group">
+            <div class="birth-inputs">
+              <input
+                type="number"
+                id="birthYear"
+                name="birthYear"
+                placeholder="년(4자)"
+                min="1900"
+                max="2026"
+                required
+              />
+              <select id="birthMonth" name="birthMonth" required>
+                <option value="" disabled selected>월</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <input
+                type="number"
+                id="birthDay"
+                name="birthDay"
+                placeholder="일"
+                min="1"
+                max="31"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- 성별 선택 -->
+          <div class="input-group">
+            <select id="gender" name="gender" required>
+              <option value="" disabled selected>성별 선택</option>
+              <option value="MALE">남자</option>
+              <option value="FEMALE">여자</option>
+              <option value="OTHER">기타</option>
+            </select>
+          </div>
+
+          <!-- 휴대전화 입력 -->
+          <div class="input-group">
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              placeholder="휴대전화(- 미포함)"
+              maxlength="11"
+              required
+            />
+          </div>
+
+          <!-- 가입하기 버튼 -->
+          <button type="button" class="signup-button" id="signup-button">
+            가입하기
+          </button>
+        </form>
+
+        <!-- 로그인 페이지 이동 -->
+        <p class="login-link">
+          이미 계정이 있으신가요? <a th:href="@{/}">로그인</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
