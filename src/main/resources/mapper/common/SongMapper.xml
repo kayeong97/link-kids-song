@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linkkids.song.controller.song.SongMapper">
+
+    <!-- 준비중인 노래 개수 가져오기 -->
+    <select id="getReadySongCount" parameterType="Long" resultType="int">
+        SELECT COUNT(*) 
+        FROM song
+        WHERE user_seq = #{userSeq} AND status = 'READY'
+    </select>
+
+    <!-- 준비중인 노래 리스트 가져오기 -->
+    <select id="getReadyJobIds" parameterType="Long" resultType="int">
+        SELECT job_id 
+        FROM song
+        WHERE user_seq = #{userSeq} AND status = 'READY'
+    </select>
+
+    <!-- 모든 READY 상태의 노래 조회 -->
+    <select id="getReadySongs" resultType="com.linkkids.song.common.model.song.SongModel">
+        SELECT 
+            song_id as songId,
+            user_seq as userSeq,
+            job_id as jobId,
+            title,
+            status,
+            created_at as createdAt
+        FROM song
+        WHERE status = 'READY'
+        ORDER BY created_at ASC
+    </select>
+
+    <!-- 노래 상태 업데이트 -->
+    <update id="saveSongMedia" parameterType="hashmap">
+        UPDATE song
+        SET 
+            status = #{status}
+            <if test="fullAudioMediaId != null">
+                , full_audio_media_id = #{fullAudioMediaId}
+            </if>
+            <if test="vocalAudioMediaId != null">
+                , vocal_audio_media_id = #{vocalAudioMediaId}
+            </if>
+            <if test="instAudioMediaId != null">
+                , inst_audio_media_id = #{instAudioMediaId}
+            </if>
+        WHERE song_id = #{songId}
+    </update>
+
+    <!-- 사용자별 노래 리스트 (페이지) - 최신순 -->
+    <select id="getSongsNewSort" parameterType="hashmap" resultType="com.linkkids.song.dto.song.SongListDTO">
+        SELECT 
+            s.song_id as songId,
+            s.title,
+            s.status,
+            s.created_at as createdAt,
+            s.job_id as jobId,
+            cover.url as coverMediaUrl,
+            full.url as fullAudioUrl,
+            vocal.url as vocalAudioUrl,
+            inst.url as instAudioUrl
+        FROM song s
+        LEFT JOIN media cover ON s.cover_media_id = cover.media_id
+        LEFT JOIN media full ON s.full_audio_media_id = full.media_id
+        LEFT JOIN media vocal ON s.vocal_audio_media_id = vocal.media_id
+        LEFT JOIN media inst ON s.inst_audio_media_id = inst.media_id
+        WHERE s.user_seq = #{userSeq} AND s.status = 'COMPLETED'
+        ORDER BY s.created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 사용자별 노래 리스트 (페이지) - 오래된순 -->
+    <select id="getSongsOldSort" parameterType="hashmap" resultType="com.linkkids.song.dto.song.SongListDTO">
+        SELECT 
+            s.song_id as songId,
+            s.title,
+            s.status,
+            s.created_at as createdAt,
+            s.job_id as jobId,
+            cover.url as coverMediaUrl,
+            full.url as fullAudioUrl,
+            vocal.url as vocalAudioUrl,
+            inst.url as instAudioUrl
+        FROM song s
+        LEFT JOIN media cover ON s.cover_media_id = cover.media_id
+        LEFT JOIN media full ON s.full_audio_media_id = full.media_id
+        LEFT JOIN media vocal ON s.vocal_audio_media_id = vocal.media_id
+        LEFT JOIN media inst ON s.inst_audio_media_id = inst.media_id
+        WHERE s.user_seq = #{userSeq} AND s.status = 'COMPLETED'
+        ORDER BY s.created_at ASC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 사용자별 노래 리스트 (페이지) - 제목순 -->
+    <select id="getSongsTitleSort" parameterType="hashmap" resultType="com.linkkids.song.dto.song.SongListDTO">
+        SELECT 
+            s.song_id as songId,
+            s.title,
+            s.status,
+            s.created_at as createdAt,
+            s.job_id as jobId,
+            cover.url as coverMediaUrl,
+            full.url as fullAudioUrl,
+            vocal.url as vocalAudioUrl,
+            inst.url as instAudioUrl
+        FROM song s
+        LEFT JOIN media cover ON s.cover_media_id = cover.media_id
+        LEFT JOIN media full ON s.full_audio_media_id = full.media_id
+        LEFT JOIN media vocal ON s.vocal_audio_media_id = vocal.media_id
+        LEFT JOIN media inst ON s.inst_audio_media_id = inst.media_id
+        WHERE s.user_seq = #{userSeq} AND s.status = 'COMPLETED'
+        ORDER BY s.title ASC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 노래 저장 -->
+    <insert id="saveSong" parameterType="com.linkkids.song.common.model.song.SongModel">
+        INSERT INTO song (
+            user_seq,
+            title,
+            mood,
+            subject,
+            categories,
+            vocal_gender,
+            audio_length,
+            job_id,
+            lyrics,
+            cover_media_id
+        ) VALUES (
+            #{userSeq},
+            #{title},
+            #{mood},
+            #{subject},
+            #{categories},
+            #{vocalGender},
+            #{audioLength},
+            #{jobId},
+            #{lyrics},
+            #{coverMediaId}
+        )
+    </insert>
+
+    <!-- 전체 노래 개수 -->
+    <select id="getTotalSongCount" parameterType="Long" resultType="int">
+        SELECT COUNT(*) 
+        FROM song
+        WHERE user_seq = #{userSeq} AND status = 'COMPLETED'
+    </select>
+
+    <!-- 가사 저장 -->
+    <insert id="saveLyrics" parameterType="hashmap">
+        INSERT INTO lyrics (
+            song_id,
+            lyrics_text
+        ) VALUES (
+            #{songId},
+            #{lyricsText}
+        )
+        ON DUPLICATE KEY UPDATE
+            lyrics_text = #{lyricsText}
+    </insert>
+
+    <!-- 노래 삭제하기 -->
+    <delete id="deleteSong" parameterType="Long">
+        DELETE FROM song
+        WHERE song_id = #{songId}
+    </delete>
+
+    <!-- 노래 파일 경로 조회 -->
+    <select id="getSongFilePath" parameterType="Long" resultType="String">
+        SELECT full_audio_url
+        FROM song s
+        JOIN media m ON s.full_audio_media_id = m.media_id
+        WHERE s.song_id = #{songId}
+    </select>
+
+    <!-- 노래 가사 조회 -->
+    <select id="getSongLyrics" parameterType="Long" resultType="String">
+        SELECT lyrics
+        FROM song
+        WHERE song_id = #{songId}
+    </select>
+
+    <!-- 노래 한 개 조회 -->
+    <select id="getSongInfo" parameterType="Long" resultType="com.linkkids.song.dto.song.SongListDTO">
+        SELECT 
+            s.song_id as songId,
+            s.title,
+            s.status,
+            s.created_at as createdAt,
+            s.job_id as jobId,
+            cover.url as coverMediaUrl,
+            full.url as fullAudioUrl,
+            vocal.url as vocalAudioUrl,
+            inst.url as instAudioUrl
+        FROM song s
+        LEFT JOIN media cover ON s.cover_media_id = cover.media_id
+        LEFT JOIN media full ON s.full_audio_media_id = full.media_id
+        LEFT JOIN media vocal ON s.vocal_audio_media_id = vocal.media_id
+        LEFT JOIN media inst ON s.inst_audio_media_id = inst.media_id
+        WHERE s.song_id = #{songId}
+    </select>
+</mapper>

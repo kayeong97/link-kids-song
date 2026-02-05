@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linkkids.song.controller.user.UserMapper">
+
+    <!-- ID로 사용자 정보 조회 -->
+    <select id="getUserById" parameterType="string" resultType="com.linkkids.song.common.model.user.UserModel">
+        SELECT 
+            user_seq as userSeq,
+            id,
+            password,
+            username,
+            email,
+            birthday,
+            gender,
+            phone_number as phoneNumber,
+            status,
+            role,
+            credit,
+            reg_date as regDate,
+            session_id as sessionId
+        FROM `user`
+        WHERE id = #{id}
+    </select>
+
+    <!-- 이메일로 사용자 정보 조회 -->
+    <select id="getUserByEmail" parameterType="string" resultType="com.linkkids.song.common.model.user.UserModel">
+        SELECT 
+            user_seq as userSeq,
+            id,
+            password,
+            username,
+            email,
+            birthday,
+            gender,
+            phone_number as phoneNumber,
+            status,
+            role,
+            credit,
+            reg_date as regDate,
+            session_id as sessionId
+        FROM user
+        WHERE email = #{email}
+    </select>
+
+    <!-- 세션 ID 설정 -->
+    <update id="setSessionId" parameterType="hashmap">
+        UPDATE user
+        SET session_id = #{sessionId}
+        WHERE user_seq = #{userSeq}
+    </update>
+
+    <!-- 회원가입 -->
+    <insert id="insertUser" parameterType="com.linkkids.song.common.model.user.UserModel">
+        INSERT INTO user (
+            id,
+            password,
+            email,
+            username,
+            birthday,
+            gender,
+            phone_number,
+            status,
+            role,
+            credit,
+            reg_date
+        ) VALUES (
+            #{id},
+            #{password},
+            #{email},
+            #{username},
+            #{birthday},
+            #{gender},
+            #{phoneNumber},
+            #{status},
+            #{role},
+            #{credit},
+            #{regDate}
+        )
+    </insert>
+</mapper>

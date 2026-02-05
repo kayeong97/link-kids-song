@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linkkids.song.controller.home.HomeMapper">
+    <!-- 생성 대기중 노래 목록 조회 -->
+    <select id="getGenerationSongReadyList" parameterType="long" resultType="String">
+        SELECT title
+        FROM song
+        WHERE user_seq = #{userSeq} AND status = 'READY'
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 최근 노래 목록 조회 -->
+    <select id="getRecentSongs" parameterType="hashmap" resultType="com.linkkids.song.dto.song.SongListDTO">
+        SELECT 
+            s.song_id as songId,
+            s.title,
+            s.status,
+            s.created_at as createdAt,
+            s.job_id as jobId,
+            cover.url as coverMediaUrl,
+            full.url as fullAudioUrl,
+            vocal.url as vocalAudioUrl,
+            inst.url as instAudioUrl
+        FROM song s
+        LEFT JOIN media cover ON s.cover_media_id = cover.media_id
+        LEFT JOIN media full ON s.full_audio_media_id = full.media_id
+        LEFT JOIN media vocal ON s.vocal_audio_media_id = vocal.media_id
+        LEFT JOIN media inst ON s.inst_audio_media_id = inst.media_id
+        WHERE s.user_seq = #{userSeq} AND s.status = 'COMPLETED'
+        ORDER BY s.created_at DESC
+        LIMIT #{count}
+    </select>
+
+
+    <!-- 최근 영상 목록 조회 -->
+    <select id="getRecentVideos" parameterType="hashmap" resultType="com.linkkids.song.dto.video.VideoListDTO">
+        SELECT 
+            lipsync_id as lipsyncId,
+            title,
+            input_image_media_id as inputImageMediaId,
+            media.url as inputImageMediaUrl,
+            output_video_media_id as outputVideoMediaId,
+            lipsync.created_at as createdAt
+        FROM lipsync
+        LEFT JOIN media ON lipsync.input_image_media_id = media.media_id
+        WHERE lipsync.user_seq = #{userSeq} AND status = 'COMPLETED'
+        ORDER BY lipsync.created_at DESC
+        LIMIT #{count}
+    </select>
+
+</mapper>

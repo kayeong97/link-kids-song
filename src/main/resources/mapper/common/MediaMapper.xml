@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linkkids.song.controller.media.MediaMapper">
+
+    <!-- 미디어 저장 -->
+    <insert id="saveMedia" parameterType="com.linkkids.song.common.model.media.MediaModel" 
+            useGeneratedKeys="true" keyProperty="mediaId">
+        INSERT INTO media (
+            user_seq,
+            type,
+            url,
+            mime_type,
+            size_bytes
+        ) VALUES (
+            #{userSeq},
+            #{type},
+            #{url},
+            #{mimeType},
+            #{sizeBytes}
+        )
+    </insert>
+
+    <!-- 미디어 ID로 조회 -->
+    <select id="getMediaById" parameterType="long" resultType="com.linkkids.song.common.model.media.MediaModel">
+        SELECT 
+            media_id as mediaId,
+            user_seq as userSeq,
+            type,
+            url,
+            mime_type as mimeType,
+            size_bytes as sizeBytes,
+            created_at as createdAt
+        FROM media
+        WHERE media_id = #{mediaId}
+    </select>
+
+    <!-- 미디어 경로 조회 -->
+    <select id="getMediaPathById" parameterType="long" resultType="string">
+        SELECT url
+        FROM media
+        WHERE media_id = #{mediaId}
+    </select>
+
+    <!-- 미디어 삭제 -->
+    <delete id="deleteMedia" parameterType="long">
+        DELETE FROM media
+        WHERE media_id = #{mediaId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html xmlns="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Kids Song</title>
+    <!-- 파비콘 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      th:href="@{/assets/img/favicon.svg}"
+      href="/assets/img/favicon.svg"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/home/home.css}"
+      href="/assets/css/home/home.css"
+    />
+    <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/assets/js/common.js}"></script>
+    <script th:src="@{/assets/js/home/home.js}"></script>
+  </head>
+  <body>
+    <!-- 상단 바 영역 -->
+    <th:block
+      th:replace="~{layout/top :: top(username=${username})}"
+    ></th:block>
+
+    <div class="content">
+      <!-- 홈 상단 글씨 -->
+      <h2>
+        <span class="home-text">생각 조각을 동요로</span>
+        <span class="home-text-animation">L</span>
+        <span class="home-text-animation">I</span>
+        <span class="home-text-animation">N</span>
+        <span class="home-text-animation">K</span>
+      </h2>
+
+      <!-- 홈 이미지 -->
+      <img th:src="@{/assets/img/home/home_img.svg}" alt="Home-Image" />
+
+      <!-- thumbnail 목록 -->
+      <div class="thumbnail-list">
+        <!-- 노래 목록 헤더 -->
+        <div class="list-header">
+          <img th:src="@{/assets/img/home/sing_icon.svg}" alt="Sing Icon" />
+          <div class="list-title" th:if="${generationSongReadyCount > 0}">
+            <span
+              class="slide-item"
+              th:text="${generationSongReadyCount}+'개 생성중'"
+            ></span>
+            <span
+              class="slide-item"
+              th:each="songTitle : ${generationSongReadyList}"
+              th:text="${songTitle} + ' 생성중'"
+            ></span>
+          </div>
+          <span th:if="${generationSongReadyCount == 0}"> 노래 리스트 </span>
+          <!-- 생성된 노래가 있을 때만 list 바로 가기 버튼 생성 -->
+          <a
+            th:href="@{/song/list}"
+            th:if="${recentSongs != null and !#lists.isEmpty(recentSongs)}"
+          >
+            <img th:src="@{/assets/img/next_icon.svg}" alt="Next Icon" />
+          </a>
+        </div>
+
+        <!-- 노래 스크롤 -->
+        <div class="thumbnail-scroll-container">
+          <!-- 노래 생성 바로 가기 -->
+          <a th:href="@{/song/generate}" class="song-create-shortcut">
+            <img
+              th:src="@{/assets/img/home/song_create_shortcut.svg}"
+              alt="Song Create Shortcut"
+            />
+          </a>
+          <!-- 최근 생성 노래 리스트 -->
+          <a
+            th:each="song : ${recentSongs}"
+            th:href="@{/song/play(songTitle=${song.title}, songId=${song.songId})}"
+            class="thumbnail-item"
+          >
+            <img
+              th:src="@{/{mediaUrl}(mediaUrl=${song.coverMediaUrl})}"
+              th:alt="${song.title}"
+              onerror="
+                this.src =
+                  '/uploads/media/media_thumbnails/default_thumbnail.png'
+              "
+            />
+            <div class="thumbnail-overlay"></div>
+            <span class="thumbnail-title" th:text="${song.title}"></span>
+          </a>
+        </div>
+
+        <!-- 영상 목록 -->
+        <div class="list-header">
+          <img th:src="@{/assets/img/home/video_icon.svg}" alt="Video Icon" />
+          <span th:text="'영상 리스트'"></span>
+          <a
+            th:href="@{/video/list}"
+            th:if="${recentVideos != null and !#lists.isEmpty(recentVideos)}"
+          >
+            <img th:src="@{/assets/img/next_icon.svg}" alt="Next Icon" />
+          </a>
+        </div>
+
+        <!-- 최근 영상 목록-->
+        <div class="thumbnail-scroll-container">
+          <!-- 동영상 생성 바로 가기 -->
+          <a th:href="@{/video/generate}" class="video-create-shortcut">
+            <img
+              th:src="@{/assets/img/home/video_create_shortcut.svg}"
+              alt="Video Create Shortcut"
+            />
+          </a>
+          <a
+            th:each="video : ${recentVideos}"
+            th:href="@{/video/play(videoTitle=${video.title}, lipsyncId=${video.lipsyncId})}"
+            class="thumbnail-item"
+          >
+            <img
+              th:src="@{/{mediaUrl}(mediaUrl=${video.inputImageMediaUrl})}"
+              th:alt="${video.title}"
+              onerror="
+                this.src =
+                  '/uploads/media/media_thumbnails/default_thumbnail.png'
+              "
+            />
+            <div class="thumbnail-overlay"></div>
+            <span class="thumbnail-title" th:text="${video.title}"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linkkids.song.controller.lipsyncVideo.LipsyncMapper">
+
+    <!-- 미디어 아이디 가져오기 -->
+    <select id="getFullMediaId" parameterType="long" resultType="long">
+        SELECT
+            full_audio_media_id
+        FROM song
+        WHERE song_id = #{songId}
+    </select>
+    <select id="getVocalMediaId" parameterType="long" resultType="long">
+        SELECT
+            vocal_audio_media_id
+        FROM song
+        WHERE song_id = #{songId}
+    </select>
+
+    <!-- 동영상 저장 -->
+    <insert id="saveLipsync" parameterType="map">
+        INSERT INTO lipsync (
+            user_seq,
+            title,
+            source_song_id,
+            input_image_media_id,
+            output_video_media_id,
+            status,
+            created_at
+        ) VALUES (
+            #{userSeq},
+            #{title},
+            #{songId},
+            #{inputImageMediaId},
+            #{outputVideoMediaId},
+            'COMPLETED',
+            NOW()
+        )
+    </insert>
+
+    <!-- 사용자 노래 리스트 조회 -->
+     <select id="getUserSongs" parameterType="long" resultType="com.linkkids.song.dto.song.SongListDTO">
+        SELECT 
+            song.song_id as songId,
+            media.url as coverMediaUrl,
+            song.title
+        FROM song
+        LEFT JOIN media ON song.cover_media_id = media.media_id
+        WHERE song.user_seq = #{userSeq} AND status = 'COMPLETED'
+        ORDER BY song.created_at DESC
+    </select>
+
+    <!-- 미디어 id로 미디어 경로 조회 -->
+    <select id="getVideoFilePath" parameterType="long" resultType="string">
+        SELECT
+            media.url
+        FROM media
+        LEFT JOIN lipsync ON media.media_id = lipsync.output_video_media_id
+        WHERE lipsync_id = #{lipsyncId}
+    </select>
+
+    <!-- 6개월 이전 동영상 리스트 조회 -->
+    <select id="getPreviousVideos" parameterType="long" resultType="com.linkkids.song.dto.video.VideoListDTO">
+        SELECT
+            lipsync_id as lipsyncId,
+            lipsync.user_seq as userSeq,
+            source_song_id as songId,
+            input_image_media_id as inputImageMediaId,
+            media.url as inputImageMediaUrl,
+            output_video_media_id as outputVideoMediaId,
+            lipsync.created_at as createdAt,
+            lipsync.title as title
+        FROM lipsync
+        LEFT JOIN media ON lipsync.input_image_media_id = media.media_id
+        WHERE lipsync.user_seq = #{userSeq}
+          AND lipsync.created_at &lt; DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+        ORDER BY lipsync.created_at DESC
+    </select>
+
+    <!-- 월별 동영상 리스트 조회 -->
+    <select id="getVideosByMonth" parameterType="map" resultType="com.linkkids.song.dto.video.VideoListDTO">
+        SELECT
+            lipsync_id as lipsyncId,
+            lipsync.user_seq as userSeq,
+            source_song_id as songId,
+            input_image_media_id as inputImageMediaId,
+            media.url as inputImageMediaUrl,
+            output_video_media_id as outputVideoMediaId,
+            lipsync.created_at as createdAt,
+            lipsync.title as title
+        FROM lipsync
+        LEFT JOIN media ON lipsync.input_image_media_id = media.media_id
+        WHERE lipsync.user_seq = #{userSeq}
+          AND MONTH(lipsync.created_at) = #{month}
+        ORDER BY lipsync.created_at DESC
+    </select>
+
+    <!-- 노래별 동영상 리스트 조회 -->
+    <select id="getVideosBySong" parameterType="long" resultType="com.linkkids.song.dto.video.VideoListDTO">
+        SELECT
+            lipsync_id as lipsyncId,
+            lipsync.user_seq as userSeq,
+            source_song_id as songId,
+            input_image_media_id as inputImageMediaId,
+            media.url as inputImageMediaUrl,
+            output_video_media_id as outputVideoMediaId,
+            lipsync.created_at as createdAt,
+            lipsync.title as title
+        FROM lipsync
+        LEFT JOIN media ON lipsync.input_image_media_id = media.media_id
+        WHERE lipsync.source_song_id = #{songId}
+        ORDER BY lipsync.created_at DESC
+    </select>
+
+    <!-- 동영상 삭제 -->
+    <delete id="deleteVideo" parameterType="long">
+        DELETE FROM lipsync
+        WHERE lipsync_id = #{videoId}
+    </delete>
+    
+</mapper>
