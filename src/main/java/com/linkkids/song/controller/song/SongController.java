@@ -93,6 +93,10 @@ public class SongController {
     // 노래 삭제하기
     @DeleteMapping("/delete/{songId}")
     public ResponseEntity<Void> deleteSong(@PathVariable Long songId) {
+        boolean check = songService.checkSongOwnership(songId, UserModel.getCurrentUser(true).getUserSeq());
+        if (!check) {
+            return ResponseEntity.status(403).build();
+        }
         songService.deleteSong(songId);
         return ResponseEntity.ok().build();
     }
@@ -100,6 +104,12 @@ public class SongController {
     // 노래 다운로드하기
     @GetMapping("/download/{songId}")
     public ResponseEntity<Resource> downloadSong(@PathVariable Long songId) throws MalformedURLException {
+
+        boolean check = songService.checkSongOwnership(songId, UserModel.getCurrentUser(true).getUserSeq());
+        if (!check) {
+            return ResponseEntity.status(403).build();
+        }
+
         Path filePath = Path.of(songService.getSongFilePath(songId)).toAbsolutePath();
         Resource resource = new UrlResource(filePath.toUri());
 
@@ -156,6 +166,14 @@ public class SongController {
     // 노래 전체 재생 페이지
     @GetMapping("/play")
     public ModelAndView playSong(@RequestParam String songTitle, @RequestParam Long songId) {
+
+        boolean check = songService.checkSongOwnership(songId, UserModel.getCurrentUser(true).getUserSeq());
+        if (!check) {
+            ModelAndView model = new ModelAndView();
+            model.setViewName("redirect:/");
+            return model;
+        }
+
         ModelAndView model = new ModelAndView();
         model.setViewName("song/fullplayer");
 

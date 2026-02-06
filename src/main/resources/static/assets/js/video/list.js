@@ -109,9 +109,19 @@ $(document).ready(function () {
     e.stopPropagation();
 
     const lipsyncId = $(this).attr("data-lipsync-id");
-    const title = $(this).attr("data-title");
 
-    window.location.href = `/video/play?videoTitle=${encodeURIComponent(title)}&lipsyncId=${lipsyncId}`;
+    // POST 요청으로 세션에 저장 후 player로 리다이렉트
+    const form = $('<form>', {
+      method: 'POST',
+      action: '/video/prepare-play'
+    });
+    $('<input>').attr({
+      type: 'hidden',
+      name: 'lipsyncId',
+      value: lipsyncId
+    }).appendTo(form);
+    $('body').append(form);
+    form.submit();
   });
 
   // 다운로드 버튼 클릭

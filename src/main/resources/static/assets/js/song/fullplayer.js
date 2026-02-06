@@ -120,19 +120,19 @@ $(function () {
     alert("재생할 수 없습니다");
   }
 
-  const playPauseBtn = document.getElementById("play-pause-btn");
-  const preSongPlayBtn = document.getElementById("pre-song-play-btn");
-  const nextSongPlayBtn = document.getElementById("next-song-play-btn");
+  const playPausebutton = document.getElementById("play-pause-button");
+  const preSongPlaybutton = document.getElementById("pre-song-play-button");
+  const nextSongPlaybutton = document.getElementById("next-song-play-button");
   const progressBar = document.getElementById("progress-bar");
 
-  if (playPauseBtn) {
-    playPauseBtn.addEventListener("click", togglePlayPause);
+  if (playPausebutton) {
+    playPausebutton.addEventListener("click", togglePlayPause);
   }
-  if (preSongPlayBtn) {
-    preSongPlayBtn.addEventListener("click", playPreviousSong);
+  if (preSongPlaybutton) {
+    preSongPlaybutton.addEventListener("click", playPreviousSong);
   }
-  if (nextSongPlayBtn) {
-    nextSongPlayBtn.addEventListener("click", playNextSong);
+  if (nextSongPlaybutton) {
+    nextSongPlaybutton.addEventListener("click", playNextSong);
   }
   if (progressBar) {
     progressBar.addEventListener("input", () => {
@@ -143,7 +143,7 @@ $(function () {
   }
 
   /* 동영상 생성하기 */
-  $(document).on("click", "#generate-video-btn", function () {
+  $(document).on("click", "#generate-video-button", function () {
     const songId = $(this).data("songId");
     if (songId) {
       const form = $("<form>", {
@@ -163,34 +163,34 @@ $(function () {
   });
 
   /* 뒤로가기 버튼 */
-  const goBackBtn = document.getElementById("back-btn");
-  if (goBackBtn) {
-    goBackBtn.addEventListener("click", () => {
+  const goBackbutton = document.getElementById("back-button");
+  if (goBackbutton) {
+    goBackbutton.addEventListener("click", () => {
       window.history.back();
     });
   }
 
   /* 가사 표시/숨기기 */
-  const lyricsShowBtn = document.getElementById("lyrics-show");
-  const lyricsHideBtn = document.getElementById("lyrics-hide");
+  const lyricsShowbutton = document.getElementById("lyrics-show");
+  const lyricsHidebutton = document.getElementById("lyrics-hide");
   const lyricsContainer = document.getElementById("song-lyrics");
 
-  if (lyricsHideBtn) {
-    lyricsHideBtn.classList.add("hidden");
+  if (lyricsHidebutton) {
+    lyricsHidebutton.classList.add("hidden");
   }
 
-  if (lyricsShowBtn && lyricsHideBtn && lyricsContainer) {
-    lyricsShowBtn.addEventListener("click", () => {
+  if (lyricsShowbutton && lyricsHidebutton && lyricsContainer) {
+    lyricsShowbutton.addEventListener("click", () => {
       lyricsContainer.style.display = "flex";
       lyricsContainer.style.alignContent = "center";
       lyricsContainer.style.justifyContent = "center";
-      lyricsShowBtn.classList.add("hidden");
-      lyricsHideBtn.classList.remove("hidden");
+      lyricsShowbutton.classList.add("hidden");
+      lyricsHidebutton.classList.remove("hidden");
     });
-    lyricsHideBtn.addEventListener("click", () => {
+    lyricsHidebutton.addEventListener("click", () => {
       lyricsContainer.style.display = "none";
-      lyricsHideBtn.classList.add("hidden");
-      lyricsShowBtn.classList.remove("hidden");
+      lyricsHidebutton.classList.add("hidden");
+      lyricsShowbutton.classList.remove("hidden");
     });
   }
 });

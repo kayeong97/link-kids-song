@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.linkkids.song.common.model.user.UserModel;
 import com.linkkids.song.controller.media.MediaService;
 import com.linkkids.song.dto.song.SongListDTO;
 import com.linkkids.song.dto.video.CheckFaceResponseDTO;
@@ -157,5 +158,12 @@ public class LipsyncService {
     // 동영상 삭제하기
     public void deleteVideo(Long videoId) {
         lipsyncMapper.deleteVideo(videoId);
+    }
+
+    // *** 기타 ***//
+    public boolean checkUserVideoAccess(Long videoId) {
+        Long userSeq = UserModel.getCurrentUser(true).getUserSeq();
+        Long count = lipsyncMapper.checkUserVideoAccess(userSeq, videoId);
+        return count != null && count > 0;
     }
 }

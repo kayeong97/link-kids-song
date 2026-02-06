@@ -7,7 +7,7 @@
 }
 
 /* 뒤로가기 버튼 */
-.back-btn {
+.back-button {
   width: 40px;
   height: 40px;
   position: relative;
@@ -48,16 +48,10 @@
   background-color: #7ed24a;
 }
 
-.generate-video-shortcut img {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-}
-
 /* 가사 토글 버튼 */
 .lyrics-toggle {
   position: fixed;
-  bottom: 110px;
+  bottom: 130px;
   left: 20px;
   z-index: 999;
   font-size: 20px;
@@ -93,6 +87,7 @@
 
 /* 노래 제목 */
 .fullplayer-container .song-title {
+  font-family: "KotraBold", sans-serif;
   position: relative;
   margin: 10px auto 15px;
   font-size: 28px;

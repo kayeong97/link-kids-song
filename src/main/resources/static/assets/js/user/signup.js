@@ -28,7 +28,7 @@ $(document).ready(function () {
   });
 
   // ID 중복확인
-  $("#checkIdBtn").on("click", function (e) {
+  $("#checkIdbutton").on("click", function (e) {
     e.preventDefault();
     const userId = $("#userId").val().trim();
 
@@ -65,7 +65,7 @@ $(document).ready(function () {
   });
 
   // Email 중복 확인
-  $("#checkEmailBtn").on("click", function (e) {
+  $("#checkEmailbutton").on("click", function (e) {
     e.preventDefault();
     const email = $("#email").val().trim();
 

@@ -45,6 +45,10 @@ public class SongService {
 
     // 노래 삭제하기
     public void deleteSong(Long songId) {
+        boolean check = checkSongOwnership(songId, UserModel.getCurrentUser(true).getUserSeq());
+        if (!check) {
+            throw new IllegalArgumentException("노래 소유자가 아닙니다.");
+        }
         songMapper.deleteSong(songId);
     }
 
@@ -61,12 +65,6 @@ public class SongService {
         int songCount = songMapper.getTotalSongCount(userSeq);
         int offset = (page - 1) * pageSize;
         int limit = (pageSize > songCount - offset) ? songCount - offset : pageSize;
-
-        // hashmap parameter
-        HashMap<String, Long> params = new HashMap<>();
-        params.put("userSeq", userSeq);
-        params.put("offset", (long) offset);
-        params.put("limit", (long) limit);
 
         List<SongListDTO> songs = null;
         if ("newest".equals(sortType)) {
@@ -100,6 +98,10 @@ public class SongService {
 
     // 노래 경로 가져오기
     public String getSongFilePath(Long songId) {
+        boolean check = checkSongOwnership(songId, UserModel.getCurrentUser(true).getUserSeq());
+        if (!check) {
+            throw new IllegalArgumentException("노래 소유자가 아닙니다.");
+        }
         return songMapper.getSongFilePath(songId);
     }
 
@@ -226,6 +228,10 @@ public class SongService {
 
     // 노래 한 개 불러오기
     public SongListDTO getSongInfo(Long songId) {
+        boolean check = checkSongOwnership(songId, UserModel.getCurrentUser(true).getUserSeq());
+        if (!check) {
+            throw new IllegalArgumentException("노래 소유자가 아닙니다.");
+        }
         SongListDTO song = songMapper.getSongInfo(songId);
         // \ -> / 변환
         if (song != null) {
@@ -243,5 +249,11 @@ public class SongService {
             }
         }
         return song;
+    }
+
+    // *** 기타 *** //
+    public boolean checkSongOwnership(Long songId, Long userSeq) {
+        Long ownerUserSeq = songMapper.getSongOwner(songId);
+        return ownerUserSeq != null && ownerUserSeq.equals(userSeq);
     }
 }

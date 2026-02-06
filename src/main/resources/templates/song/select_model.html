@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Kids Song</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/assets/css/song/select_model.css}"
+      href="/assets/css/song/select_model.css"
+    />
+  </head>
+  <body>
+    <div class="select-model-overlay">
+      <div class="select-model-modal">
+        <h2>노래 생성 모델 선택</h2>
+        <button type="radio" class="model-button" id="open-model">
+          오픈소스 노래 생성
+        </button>
+        <button type="radio" class="model-button" id="pro-model">
+          suno 노래 생성
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

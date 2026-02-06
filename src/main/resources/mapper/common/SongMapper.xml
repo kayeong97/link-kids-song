@@ -202,4 +202,10 @@
         LEFT JOIN media inst ON s.inst_audio_media_id = inst.media_id
         WHERE s.song_id = #{songId}
     </select>
+
+    <select id="getSongOwner" parameterType="Long" resultType="Long">
+        SELECT user_seq
+        FROM song
+        WHERE song_id = #{songId}
+    </select>
 </mapper>

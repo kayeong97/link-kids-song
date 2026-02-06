@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.api.client.util.Value;
 import com.linkkids.song.common.model.song.SongModel;
 import com.linkkids.song.controller.media.MediaDownloader;
 

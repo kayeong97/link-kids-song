@@ -5,9 +5,9 @@ let currentSongIndex = -1;
 let songsList = [];
 
 // DOM 요소
-const playPauseBtn = document.getElementById("play-pause-btn");
-const preSongPlayBtn = document.getElementById("pre-song-play-btn");
-const nextSongPlayBtn = document.getElementById("next-song-play-btn");
+const playPausebutton = document.getElementById("play-pause-button");
+const preSongPlaybutton = document.getElementById("pre-song-play-button");
+const nextSongPlaybutton = document.getElementById("next-song-play-button");
 const progressBar = document.getElementById("progress-bar");
 const currentTimeSpan = document.getElementById("current-time");
 const totalTimeSpan = document.getElementById("total-time");
@@ -112,18 +112,18 @@ function playNextSong() {
 }
 
 // 재생/일시정지 버튼 클릭
-if (playPauseBtn) {
-  playPauseBtn.addEventListener("click", togglePlayPause);
+if (playPausebutton) {
+  playPausebutton.addEventListener("click", togglePlayPause);
 }
 
 // 이전 곡 버튼 클릭
-if (preSongPlayBtn) {
-  preSongPlayBtn.addEventListener("click", playPreviousSong);
+if (preSongPlaybutton) {
+  preSongPlaybutton.addEventListener("click", playPreviousSong);
 }
 
 // 다음 곡 버튼 클릭
-if (nextSongPlayBtn) {
-  nextSongPlayBtn.addEventListener("click", playNextSong);
+if (nextSongPlaybutton) {
+  nextSongPlaybutton.addEventListener("click", playNextSong);
 }
 
 // progress bar 클릭/드래그

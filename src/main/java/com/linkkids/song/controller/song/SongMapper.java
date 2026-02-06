@@ -52,4 +52,7 @@ public interface SongMapper {
 
     // 노래 한 개 조회
     SongListDTO getSongInfo(Long songId);
+
+    // 노래 소유자 조회
+    Long getSongOwner(Long songId);
 }

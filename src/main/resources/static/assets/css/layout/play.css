@@ -82,9 +82,9 @@
 }
 
 /* 이전, 현재, 다음 노래 재생 버튼 */
-#pre-song-play-btn,
-#next-song-play-btn,
-#play-pause-btn {
+#pre-song-play-button,
+#next-song-play-button,
+#play-pause-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -95,24 +95,24 @@
   transition: transform 0.2s;
 }
 
-#pre-song-play-btn:hover,
-#next-song-play-btn:hover,
-#play-pause-btn:hover {
+#pre-song-play-button:hover,
+#next-song-play-button:hover,
+#play-pause-button:hover {
   transform: scale(1.1);
 }
 
-#pre-song-play-btn img,
-#next-song-play-btn img {
+#pre-song-play-button img,
+#next-song-play-button img {
   width: 32px;
   height: 32px;
 }
 
-#play-pause-btn img {
+#play-pause-button img {
   width: 48px;
   height: 48px;
 }
 
-.play-pause-btn #pause-icon,
-.play-pause-btn #play-icon {
+.play-pause-button #pause-icon,
+.play-pause-button #play-icon {
   display: block;
 }

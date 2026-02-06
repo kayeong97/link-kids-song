@@ -35,4 +35,7 @@ public interface LipsyncMapper {
 
     // 동영상 삭제
     void deleteVideo(Long videoId);
+
+    // 동영상 접근 권한 확인
+    Long checkUserVideoAccess(Long userSeq, Long videoId);
 }

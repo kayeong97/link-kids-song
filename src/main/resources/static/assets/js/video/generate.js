@@ -58,6 +58,7 @@ $(document).ready(function () {
         icon: "info",
         title: "노래를 선택해주세요.",
         confirmButtonText: "확인",
+        backdrop: "rgba(0, 0, 0, 0.7)",
       });
     }
   });
@@ -91,6 +92,7 @@ $(document).ready(function () {
             icon: "error",
             title: "이미지 업로드에 실패했습니다.",
             confirmButtonText: "확인",
+            backdrop: "rgba(0, 0, 0, 0.7)",
           });
           console.error(xhr);
           return;
@@ -111,6 +113,7 @@ $(document).ready(function () {
         icon: "info",
         title: "노래, 제목, 이미지를 모두 입력해주세요.",
         confirmButtonText: "확인",
+        backdrop: "rgba(0, 0, 0, 0.7)",
       });
       return;
     }
@@ -128,8 +131,9 @@ $(document).ready(function () {
         $(".loading-overlay").removeClass("active");
         Swal.fire({
           icon: "success",
-          title: "동영상이 성공적으로 생성되었습니다!",
+          title: "동영상 생성 완료!",
           confirmButtonText: "확인",
+          backdrop: "rgba(0, 0, 0, 0.7)",
         }).then((result) => {
           if (result.isConfirmed) {
             window.history.back();
@@ -143,6 +147,7 @@ $(document).ready(function () {
           title: "동영상 생성에 실패했습니다.",
           text: "다시 한번 시도해주세요.",
           confirmButtonText: "확인",
+          backdrop: "rgba(0, 0, 0, 0.7)",
         });
         console.error(xhr);
         return;

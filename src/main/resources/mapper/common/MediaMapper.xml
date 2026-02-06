@@ -49,4 +49,11 @@
         WHERE media_id = #{mediaId}
     </delete>
 
+    <!-- 미디어 권한 확인 -->
+    <select id="checkUserMediaAccess" parameterType="map" resultType="long">
+        SELECT COUNT(*)
+        FROM media
+        WHERE user_seq = #{userSeq} AND media_id = #{mediaId}
+    </select>
+
 </mapper>

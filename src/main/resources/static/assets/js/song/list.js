@@ -138,24 +138,24 @@ function playNextSong() {
 // *** list *** //
 
 $(function () {
-  const playPauseBtn = document.getElementById("play-pause-btn");
-  const preSongPlayBtn = document.getElementById("pre-song-play-btn");
-  const nextSongPlayBtn = document.getElementById("next-song-play-btn");
+  const playPausebutton = document.getElementById("play-pause-button");
+  const preSongPlaybutton = document.getElementById("pre-song-play-button");
+  const nextSongPlaybutton = document.getElementById("next-song-play-button");
   const progressBar = document.getElementById("progress-bar");
 
   // 재생/일시정지 버튼 클릭
-  if (playPauseBtn) {
-    playPauseBtn.addEventListener("click", togglePlayPause);
+  if (playPausebutton) {
+    playPausebutton.addEventListener("click", togglePlayPause);
   }
 
   // 이전 곡 버튼 클릭
-  if (preSongPlayBtn) {
-    preSongPlayBtn.addEventListener("click", playPreviousSong);
+  if (preSongPlaybutton) {
+    preSongPlaybutton.addEventListener("click", playPreviousSong);
   }
 
   // 다음 곡 버튼 클릭
-  if (nextSongPlayBtn) {
-    nextSongPlayBtn.addEventListener("click", playNextSong);
+  if (nextSongPlaybutton) {
+    nextSongPlaybutton.addEventListener("click", playNextSong);
   }
 
   // progress bar 클릭/드래그
@@ -205,7 +205,7 @@ $(function () {
   });
 
   // 노래 다운로드
-  $(document).on("click", ".save-song-btn", function () {
+  $(document).on("click", ".save-song-button", function () {
     const songUrl = $(this).data("song-url");
     const songTitle = $(this).data("song-title");
     if (songUrl && songTitle) {
@@ -218,8 +218,28 @@ $(function () {
     }
   });
 
+  // 노래 제목 클릭 (전체화면 재생)
+  $(document).on("click", ".play-song-fullscreen", function (e) {
+    e.preventDefault();
+    const songId = $(this).data("song-id");
+
+    const form = $("<form>", {
+      method: "POST",
+      action: "/song/prepare-play",
+    });
+    $("<input>")
+      .attr({
+        type: "hidden",
+        name: "songId",
+        value: songId,
+      })
+      .appendTo(form);
+    $("body").append(form);
+    form.submit();
+  });
+
   // 노래 재생
-  $(document).on("click", ".play-song-btn", function () {
+  $(document).on("click", ".play-song-button", function () {
     if (isPlaying) {
       pauseSong();
     }
@@ -236,7 +256,7 @@ $(function () {
   });
 
   // 더보기 버튼
-  $(document).on("click", ".more-options-btn", function () {
+  $(document).on("click", ".more-options-button", function () {
     const menuLayout = $(".menu-layout");
     const button = $(this);
     const songId = button.data("song-id");
@@ -253,16 +273,16 @@ $(function () {
         left: buttonOffset.left + "px",
       });
 
-      $("#remove-btn").data("songId", songId);
-      $("#remove-btn").data("songTitle", songTitle);
-      $("#generate-video-btn").data("songId", songId);
+      $("#remove-button").data("songId", songId);
+      $("#remove-button").data("songTitle", songTitle);
+      $("#generate-video-button").data("songId", songId);
 
       menuLayout.addClass("active");
     }
   });
 
   // 노래 다운로드
-  $(document).on("click", "#save-song-btn", function () {
+  $(document).on("click", "#save-song-button", function () {
     $.ajax({
       url: `/song/download/${$(this).data("songId")}`,
       type: "GET",
@@ -290,7 +310,7 @@ $(function () {
   });
 
   // 동영상 생성하기
-  $(document).on("click", "#generate-video-btn", function () {
+  $(document).on("click", "#generate-video-button", function () {
     const songId = $(this).data("songId");
     if (songId) {
       const form = $("<form>", {
@@ -310,7 +330,7 @@ $(function () {
   });
 
   // 노래 삭제
-  $(document).on("click", "#remove-btn", function () {
+  $(document).on("click", "#remove-button", function () {
     const songId = $(this).data("songId");
     const songTitle = $(this).data("songTitle");
 
@@ -323,6 +343,7 @@ $(function () {
       inputAttributes: {
         autocapitalize: "off",
       },
+      backdrop: "rgba(0, 0, 0, 0.7)",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
@@ -335,6 +356,7 @@ $(function () {
           Swal.fire({
             title: "삭제 실패",
             text: "제목이 일치하지 않습니다. 다시 시도해주세요.",
+            backdrop: "rgba(0, 0, 0, 0.7)",
             icon: "error",
           });
           return;
@@ -346,6 +368,7 @@ $(function () {
             Swal.fire({
               title: "삭제 완료!",
               text: "노래가 성공적으로 삭제되었습니다.",
+              backdrop: "rgba(0, 0, 0, 0.7)",
               icon: "success",
             });
             loadPage(currentPage, currentSortType);
@@ -354,6 +377,7 @@ $(function () {
             Swal.fire({
               title: "삭제 실패",
               text: "제목이 일치하지 않습니다. 다시 시도해주세요.",
+              backdrop: "rgba(0, 0, 0, 0.7)",
               icon: "error",
             });
           },
@@ -365,10 +389,10 @@ $(function () {
 
   // 메뉴 및 재생바 닫기
   $(document).on("click", function (e) {
-    if (!$(e.target).closest(".more-options-btn, .menu-layout").length) {
+    if (!$(e.target).closest(".more-options-button, .menu-layout").length) {
       $(".menu-layout").removeClass("active");
     }
-    if (!$(e.target).closest(".play-song, .play-song-btn").length) {
+    if (!$(e.target).closest(".play-song, .play-song-button").length) {
       pauseSong();
       currentAudio = null;
       isPlaying = false;
@@ -418,7 +442,7 @@ function updateSortButtons() {
 
 function updateSongsList() {
   songsList = [];
-  $(".play-song-btn").each(function () {
+  $(".play-song-button").each(function () {
     songsList.push({
       url: $(this).data("song-url"),
       title: $(this).data("song-title"),

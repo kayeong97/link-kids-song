@@ -26,7 +26,10 @@
       <!-- 사용자 메뉴 -->
       <div class="user-menu" id="user-menu">
         <form th:action="@{/logout}" method="post" style="display: inline">
-          <button id="logout-button" type="submit">로그아웃</button>
+          <button id="logout-button" type="submit">
+            <img th:src="@{/assets/img/layout/logout_icon.svg}" alt="Logout" />
+            로그아웃
+          </button>
         </form>
       </div>
     </body>

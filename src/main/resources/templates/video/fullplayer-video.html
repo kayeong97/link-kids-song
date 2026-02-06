@@ -18,6 +18,11 @@
       th:href="@{/assets/css/video/fullplayer-video.css}"
       href="/assets/css/video/fullplayer-video.css"
     />
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/fonts.css}"
+      href="/assets/css/fonts.css"
+    />
     <!-- jquery -->
     <script th:src="@{/assets/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/assets/js/common.js}"></script>
@@ -30,13 +35,13 @@
     ></th:block>
     <div class="fullplayer-wrapper">
       <div class="header">
-        <div class="back-btn" id="back-btn">
-          <img th:src="@{/assets/img/video/back_btn_icon.svg}" alt="Back" />
+        <div class="back-button" id="back-button">
+          <img th:src="@{/assets/img/video/back_button_icon.svg}" alt="Back" />
         </div>
         <span class="video-title" th:text="${videoTitle}">동영상 제목</span>
         <img
-          class="delete-video-btn"
-          id="delete-video-btn"
+          class="delete-video-button"
+          id="delete-video-button"
           th:src="@{/assets/img/video/delete_icon.svg}"
           alt="Delete"
         />

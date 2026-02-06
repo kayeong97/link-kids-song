@@ -22,7 +22,7 @@
         </td>
         <td>
           <button
-            class="play-song-btn"
+            class="play-song-button"
             th:data-song-url="@{/{mediaUrl}(mediaUrl=${song.fullAudioUrl})}"
             th:data-song-index="${iterStat.index}"
             th:data-song-title="${song.title}"
@@ -33,7 +33,7 @@
         </td>
         <td>
           <button
-            class="save-song-btn"
+            class="save-song-button"
             th:data-song-url="@{/{mediaUrl}(mediaUrl=${song.fullAudioUrl})}"
             th:data-song-title="${song.title}"
             th:data-song-id="${song.songId}"
@@ -46,7 +46,7 @@
         </td>
         <td>
           <button
-            class="more-options-btn"
+            class="more-options-button"
             th:data-song-id="${song.songId}"
             th:data-song-title="${song.title}"
           >

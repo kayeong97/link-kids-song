@@ -157,6 +157,12 @@ public class LipsyncController {
     // 동영상 다운로드
     @GetMapping("/download/{lipsyncId}")
     public ResponseEntity<Resource> downloadVideo(@PathVariable Long lipsyncId) throws MalformedURLException {
+
+        boolean check = lipsyncService.checkUserVideoAccess(lipsyncId);
+        if (!check) {
+            return ResponseEntity.status(403).build();
+        }
+
         Path videoPath = Path.of(lipsyncService.getVideoFilePath(lipsyncId)).toAbsolutePath();
         if (videoPath == null) {
             return ResponseEntity.notFound().build();
@@ -179,6 +185,10 @@ public class LipsyncController {
     // 동영상 삭제하기
     @DeleteMapping("/delete/{lipsyncId}")
     public ResponseEntity<String> deleteVideo(@PathVariable Long lipsyncId) {
+        boolean check = lipsyncService.checkUserVideoAccess(lipsyncId);
+        if (!check) {
+            return ResponseEntity.status(403).body("권한 없음");
+        }
         lipsyncService.deleteVideo(lipsyncId);
         return ResponseEntity.ok().build();
     }
@@ -188,6 +198,12 @@ public class LipsyncController {
     public ModelAndView playVideo(@RequestParam String videoTitle, @RequestParam Long lipsyncId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("video/fullplayer-video");
+
+        boolean check = lipsyncService.checkUserVideoAccess(lipsyncId);
+        if (!check) {
+            modelAndView.setViewName("redirect:/");
+            return modelAndView;
+        }
 
         String videoFilePath = lipsyncService.getVideoFilePath(lipsyncId);
         videoFilePath = videoFilePath.replace("\\", "/");

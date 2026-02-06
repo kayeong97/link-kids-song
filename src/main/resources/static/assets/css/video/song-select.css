@@ -140,7 +140,7 @@
 }
 
 /* 선택 완료 버튼 */
-.select-btn #confirm-song-selection {
+.select-button #confirm-song-selection {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #def4ac;
@@ -152,7 +152,7 @@
 }
 
 /* 종료 버튼 */
-.select-btn #close-song-select-modal {
+.select-button #close-song-select-modal {
   margin-top: 10px;
   padding: 5px 10px;
   background: none;

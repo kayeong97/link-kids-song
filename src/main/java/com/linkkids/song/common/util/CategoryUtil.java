@@ -17,13 +17,19 @@ public class CategoryUtil {
         categoryMap.put("클래식", "Classical");
         categoryMap.put("댄스", "Dance");
         categoryMap.put("크리스마스", "Christmas");
+        categoryMap.put("자신감", "Confident");
+        categoryMap.put("코미디", "Comedy");
+        categoryMap.put("존경", "Admirative");
+        categoryMap.put("힐링", "Healing");
+        categoryMap.put("감성", "emotional");
+        categoryMap.put("명상", "Meditative");
+        categoryMap.put("사랑", "Romantic");
         categoryMap.put("봄", "Spring");
         categoryMap.put("여름", "Summer");
         categoryMap.put("가을", "Autumn");
         categoryMap.put("겨울", "Winter");
-        categoryMap.put("자신감", "Confident");
     }
-    
+
     // 모든 무드 리스트 한글 반환
     static public List<String> getCategoryList() {
         List<String> categoryKeys = categoryMap.keySet().stream().toList();

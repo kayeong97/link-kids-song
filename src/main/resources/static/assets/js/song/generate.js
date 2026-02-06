@@ -30,22 +30,22 @@ $(document).ready(function () {
 
   // 분위기 선택
   $(".song-mood ul").on("click", function (e) {
-    const btn = $(e.target).closest("button.mood-select");
-    if (!btn.length) return;
+    const button = $(e.target).closest("button.mood-select");
+    if (!button.length) return;
 
     $(".song-mood .mood-select").attr("aria-pressed", "false");
-    btn.attr("aria-pressed", "true");
-    songData.mood = btn.data("mood");
+    button.attr("aria-pressed", "true");
+    songData.mood = button.data("mood");
   });
 
   // 카테고리 선택
   $(".song-category ul").on("click", function (e) {
-    const btn = $(e.target).closest("button.category-select");
-    if (!btn.length) return;
+    const button = $(e.target).closest("button.category-select");
+    if (!button.length) return;
 
     $(".song-category .category-select").attr("aria-pressed", "false");
-    btn.attr("aria-pressed", "true");
-    songData.category = btn.data("category");
+    button.attr("aria-pressed", "true");
+    songData.category = button.data("category");
   });
 
   // 커버 이미지 미리보기
@@ -77,6 +77,7 @@ $(document).ready(function () {
       Swal.fire({
         icon: "info",
         title: "제목과 주제를 입력해주세요.",
+        backdrop: "rgba(0, 0, 0, 0.7)",
         confirmButtonText: "확인",
       });
       return;
@@ -86,6 +87,7 @@ $(document).ready(function () {
       Swal.fire({
         icon: "info",
         title: "오디오 길이를 입력해주세요.",
+        backdrop: "rgba(0, 0, 0, 0.7)",
         confirmButtonText: "확인",
       });
       return;
@@ -94,6 +96,7 @@ $(document).ready(function () {
       Swal.fire({
         icon: "info",
         title: "오디오 길이는 30초에서 2분 사이여야 합니다.",
+        backdrop: "rgba(0, 0, 0, 0.7)",
         confirmButtonText: "확인",
       });
       return;
@@ -127,6 +130,7 @@ $(document).ready(function () {
       Swal.fire({
         icon: "info",
         title: "분위기와 카테고리를 선택해주세요.",
+        backdrop: "rgba(0, 0, 0, 0.7)",
         confirmButtonText: "확인",
       });
       return;
@@ -173,6 +177,7 @@ $(document).ready(function () {
           icon: "error",
           title: "가사 생성에 실패했습니다",
           text: xhr.responseJSON?.message || error,
+          backdrop: "rgba(0, 0, 0, 0.7)",
           confirmButtonText: "확인",
         });
       },
@@ -190,6 +195,7 @@ $(document).ready(function () {
       Swal.fire({
         icon: "info",
         title: "가사를 입력하거나 생성해주세요.",
+        backdrop: "rgba(0, 0, 0, 0.7)",
         confirmButtonText: "확인",
       });
       return;
@@ -223,6 +229,7 @@ $(document).ready(function () {
           Swal.fire({
             icon: "error",
             title: "커버 이미지 업로드에 실패했습니다.",
+            backdrop: "rgba(0, 0, 0, 0.7)",
             confirmButtonText: "확인",
           });
           console.error(xhr);
@@ -244,6 +251,7 @@ $(document).ready(function () {
       Swal.fire({
         icon: "error",
         title: "오디오 시간을 다시 확인해주세요.",
+        backdrop: "rgba(0, 0, 0, 0.7)",
         confirmButtonText: "확인",
       });
       return;
@@ -271,6 +279,7 @@ $(document).ready(function () {
         Swal.fire({
           icon: "error",
           title: "노래 생성에 실패했습니다.",
+          backdrop: "rgba(0, 0, 0, 0.7)",
           confirmButtonText: "확인",
         });
         if (songData.mediaId) {

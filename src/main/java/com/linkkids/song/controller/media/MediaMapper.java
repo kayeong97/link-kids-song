@@ -18,4 +18,7 @@ public interface MediaMapper {
 
     // 미디어 삭제
     void deleteMedia(Long mediaId);
+
+    // 미디어 권한 확인
+    Long checkUserMediaAccess(Long userSeq, Long mediaId);
 }

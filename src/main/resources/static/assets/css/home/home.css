@@ -10,16 +10,19 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
+  box-sizing: border-box;
 }
 
 /* 홈 상단 글씨 박스 */
 h2 {
+  margin-top: 50px;
   height: 100px;
 }
 
 h2 span {
   position: relative;
   top: 20px;
+  font-family: "RomanticGumi", sans-serif;
 }
 
 h2 .home-text {
@@ -117,6 +120,7 @@ h2 .home-text-animation:nth-child(5) {
   min-width: 0;
 }
 
+/* 슬라이드 애니메이션 */
 .slide-item {
   position: absolute;
   left: 0;

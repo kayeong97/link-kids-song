@@ -23,16 +23,28 @@ public class MediaService {
 
     // 미디어 ID로 조회
     public MediaModel getMediaById(Long mediaId) {
+        boolean hasAccess = checkUserMediaAccess(mediaId);
+        if (!hasAccess) {
+            throw new RuntimeException("미디어 접근 권한이 없습니다.");
+        }
         return mediaMapper.getMediaById(mediaId);
     }
 
     // 미디어 경로 조회
     public String getMediaPathById(Long mediaId) {
+        boolean hasAccess = checkUserMediaAccess(mediaId);
+        if (!hasAccess) {
+            throw new RuntimeException("미디어 접근 권한이 없습니다.");
+        }
         return mediaMapper.getMediaPathById(mediaId);
     }
 
     // 미디어 삭제
     public void deleteMedia(Long mediaId) {
+        boolean hasAccess = checkUserMediaAccess(mediaId);
+        if (!hasAccess) {
+            throw new RuntimeException("미디어 접근 권한이 없습니다.");
+        }
         mediaMapper.deleteMedia(mediaId);
     }
 
@@ -71,5 +83,12 @@ public class MediaService {
         mediaMapper.saveMedia(mediaModel);
 
         return mediaModel.getMediaId();
+    }
+
+    // *** 기타 *** //
+    public boolean checkUserMediaAccess(Long mediaId) {
+        Long userSeq = UserModel.getCurrentUser(true).getUserSeq();
+        Long count = mediaMapper.checkUserMediaAccess(userSeq, mediaId);
+        return count != null && count > 0;
     }
 }
